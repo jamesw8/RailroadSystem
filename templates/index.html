@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-	Hi, you're at {{ request['path'] }}.
-	<form method="post" action="{{ request.path }}">
+	Hi, you're at {{ request['url'] }}.	
+	<form method="post" action="/f17336pteam3{{ url_for('index') }}">
 		<label>Enter a SQL command here:</label>
 		<br />
 		<textarea name="command" placeholder="SQL command here." required>SHOW TABLES;</textarea>

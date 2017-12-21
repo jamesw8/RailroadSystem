@@ -12,7 +12,7 @@ except:
 	print('ERROR: CANNOT RETRIEVE DB PASSWORD')
 	pass
 
-@app.route('/', methods=['GET']) 
+@app.route('/', methods=['GET', 'POST']) 
 def index():
 	print(cur)
 	if request.method == 'POST':
