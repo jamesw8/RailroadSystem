@@ -3,10 +3,32 @@
 		<meta charset="utf-8">
   		<meta name="viewport" content="width=device-width, initial-scale=1">
   		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  		<link rel="stylesheet" href="{{  url_for('static', filename='css/main.css') }}">
+  		<link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.1.8/semantic.min.css">
+  		<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/semantic-ui/2.1.8/semantic.min.js"></script>
 		<title>DATABASES~!!!</title>
 	</head>
 	<body>
+		<div>
+			<div class="ui vertical center aligned segment">
+			    <div class="ui container">
+			      <div class="ui large secondary pointing menu">
+			        <a class="toc item">
+			          <i class="sidebar icon"></i>
+			        </a>
+			        <a class="active item">Home</a>
+			        <a class="item">Schedules</a>
+			        <a class="item">Reserve Ticket</a>
+			        <a class="item">My Tickets</a>
+			        <div class="right item">
+			          <a class="ui button">Log in</a>
+			          &nbsp;
+			          <a class="ui button">Sign Up</a>
+			        </div>
+			      </div>
+			    </div>
+			</div>
+		</div>
 		{% block content %}
 		{% endblock %}
 	</body>
