@@ -14,7 +14,6 @@ except:
 
 @app.route('/', methods=['GET', 'POST']) 
 def index():
-	print(cur)
 	if request.method == 'POST':
 		command = request.form['command']
 		cur.execute(command)
