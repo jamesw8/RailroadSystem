@@ -16,9 +16,12 @@ except:
 def index():
 	if request.method == 'POST':
 		command = request.form['command']
+		cur.execute('describe stations;')
+		headers = cur.fetchall()
+		print(headers)
 		cur.execute(command)
 		results = cur.fetchall()
-		return render_template('index.html', results=results)
+		return render_template('index.html', headers=headers, results=results)
 	return render_template('index.html')
 
 if __name__ == '__main__':
