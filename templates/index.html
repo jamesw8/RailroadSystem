@@ -1,17 +1,28 @@
 {% extends "base.html" %}
 {% block content %}
-	Hi, you're at {{ request['url'] }}.	
 	<form method="post" action="/f17336pteam3{{ url_for('index') }}">
-		<label>Enter a SQL command here:</label>
-		<br />
-		<textarea name="command" placeholder="SQL command here." required>SHOW TABLES;</textarea>
-		<input type="submit" value="Submit" />
+		<div class="ui container form">
+			<div class="field">
+				<label>Enter a SQL command here:</label>
+				<textarea rows="2" cols="5" name="command" placeholder="SQL command here." required>SHOW TABLES;</textarea>
+			</div>
+			<input type="submit" value="Submit" />
+		</div>
 	</form>
 	{% if results %}
-		<div>
-			{% for attribute in results %}
-				{{ attribute[0] }}
-			{% endfor %}
-		</div>
+		<table class="ui celled table">
+			<thead>
+				<tr>
+					{% for attribute in results %}
+						<th>{{ attribute[0] }}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
 	{% endif %}
 {% endblock %}
