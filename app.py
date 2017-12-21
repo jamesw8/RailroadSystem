@@ -25,7 +25,7 @@ def index():
 		return render_template('index.html', headers=headers, results=results)
 	return render_template('index.html')
 
-@app.route('/stations', methods=['GET', 'POST'])
+@app.route('/f17336pteam/stations', methods=['GET', 'POST'])
 def viewStations():
 	print(request.path,url_for('viewStations'))
 	if request.method == 'POST':
