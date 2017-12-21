@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 	Hi, you're at {{ request['url'] }}.
-	<form method="post" action="{{ url_for('/') }}">
+	<form method="post" action="{{ url_for('index') }}">
 		<label>Enter a SQL command here:</label>
 		<br />
 		<textarea name="command" placeholder="SQL command here." required>SHOW TABLES;</textarea>
