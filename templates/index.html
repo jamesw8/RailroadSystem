@@ -6,23 +6,27 @@
 				<label>Enter a SQL command here:</label>
 				<textarea rows="2" cols="5" name="command" placeholder="SQL command here." required>SHOW TABLES;</textarea>
 			</div>
-			<input type="submit" value="Submit" />
+			<input class="ui button" type="submit" value="Submit" />
 		</div>
 	</form>
-	{% if results %}
+	{% if headers %}
 		<table class="ui celled table">
 			<thead>
 				<tr>
-					{% for attribute in results %}
+					{% for attribute in headers %}
 						<th>{{ attribute[0] }}</th>
 					{% endfor %}
 				</tr>
 			</thead>
-			<tbody>
-				<tr>
-					<td></td>
-				</tr>
-			</tbody>
+			{% if results %}	
+				<tbody>
+					{% for result in results %}
+						<tr>
+							<td>{{ result[0] }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			{% endif %}
 		</table>
 	{% endif %}
 {% endblock %}
