@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-	Hi, you're at {{ request['url'] }}.
+	Hi, you're at {{ request['path'] }}.
 	<form method="post" action="{{ request.path }}">
 		<label>Enter a SQL command here:</label>
 		<br />
