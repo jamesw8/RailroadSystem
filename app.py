@@ -21,6 +21,7 @@ def index():
 		print(headers)
 		cur.execute(command)
 		results = cur.fetchall()
+		print(results)
 		return render_template('index.html', headers=headers, results=results)
 	return render_template('index.html')
 
