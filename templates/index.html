@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-Hi, you're at {{ request['url'] }}.
-<form method="post" action="/">
-	<label>Enter a SQL command here</label>
-	<textarea name="command" placeholder="SHOW TABLES;" required></textarea>
-	
+	Hi, you're at {{ request['url'] }}.
+	<form method="post" action="/">
+		<label>Enter a SQL command here:</label>
+		<br />
+		<textarea name="command" placeholder="SQL command here." required>SHOW TABLES;</textarea>
+		<input type="submit" value="Submit" />
+	</form>
 	{% if results %}
 		<div>
 			{{ results }}
