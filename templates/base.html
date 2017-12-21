@@ -16,10 +16,10 @@
 			        <a class="toc item">
 			          <i class="sidebar icon"></i>
 			        </a>
-			        <a class="active item">Home</a>
-			        <a class="item">Schedules</a>
-			        <a class="item">Reserve Ticket</a>
-			        <a class="item">My Tickets</a>
+			        <a id="home" class="item" href="{{ url_for('index') }}">Home</a>
+			        <a id="stations" class="item" href="{{ url_for('viewStations') }}">Stations</a>
+			        <a id="reservations" class="item">Reserve Ticket</a>
+			        <a id="tickets" class="item">My Tickets</a>
 			        <div class="right item">
 			          <a class="ui button">Log in</a>
 			          &nbsp;
@@ -31,5 +31,12 @@
 		</div>
 		{% block content %}
 		{% endblock %}
+		<script>
+			if ('{{ request.path }}' == '{{ url_for('index') }}') {
+				document.getElementById('home').classList.add('active');
+			} else if ('{{ request.path }}' == '{{ url_for('viewStations') }}') {
+				document.getElementById('stations').classList.add('active');
+			}
+		</script>
 	</body>
 </html>
