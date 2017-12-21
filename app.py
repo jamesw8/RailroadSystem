@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import pymysql
 app = Flask(__name__)
 
@@ -15,8 +15,11 @@ except:
 @app.route('/', methods=['GET']) 
 def index():
 	print(cur)
-	print('hi')
-	return render_template('index.html')
+	if request.method == 'POST':
+		command = request.form['command']
+		cur.execute(command)
+		results = cur.fetchall()
+	return render_template('index.html', results=results)
 
 if __name__ == '__main__':
 	app.run(debug=True, host='0.0.0.0', port=8003)
