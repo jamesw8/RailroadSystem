@@ -19,7 +19,8 @@ def index():
 		command = request.form['command']
 		cur.execute(command)
 		results = cur.fetchall()
-	return render_template('index.html', results=results)
+		return render_template('index.html', results=results)
+	return render_template('index.html')
 
 if __name__ == '__main__':
 	app.run(debug=True, host='0.0.0.0', port=8003)
