@@ -6,7 +6,7 @@ app = Flask(__name__)
 try:
 	with open('passwd', 'r') as pwd:
 		passwd = pwd.read().rstrip('\n')
-	conn = pymysql.connect(host='127.0.0.1', port=3306, user='F17336Pteam3', passwd=passwd, database='railroad1')
+	conn = pymysql.connect(host='127.0.0.1', port=3306, user='F17336Pteam3', passwd=passwd, database='F17336Pteam3')
 	cur = conn.cursor()
 except:
 	print('ERROR: CANNOT RETRIEVE DB PASSWORD')
