@@ -9,7 +9,9 @@
 	</form>
 	{% if results %}
 		<div>
-			{{ results }}
+			{% for attribute in results %}
+				{{ attribute[0] }}
+			{% endfor %}
 		</div>
 	{% endif %}
 {% endblock %}
