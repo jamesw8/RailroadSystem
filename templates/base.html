@@ -28,7 +28,7 @@
 			        		{% else %}
 				          		<a class="ui button">Log In</a>
 				          		&nbsp;
-				          		<a class="ui button">Sign Up</a>
+				          		<a id="registration"  class="ui button" href= "/f17336pteam3{{ url_for('register') }}" >Sign Up</a>
 			        		{% endif %}
 			        	</div>
 			      	</div>
@@ -44,7 +44,10 @@
 				document.getElementById('stations').classList.add('active');
 			}  else if ('{{ request.path }}' == '{{ url_for('MakeReservation') }}') {
 				document.getElementById('reservations').classList.add('active');
-			}
+			} else if ('{{ request.path }}' == '{{ url_for('register') }}') {
+				document.getElementById('registration').classList.add('active');
+			} 
+
 		</script>
 	</body>
 </html>
