@@ -1,10 +1,7 @@
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request, redirect, url_for
 import dbhelper as db
-import sys
 
 app = Flask(__name__)
-
-
 
 @app.route('/register', methods=['GET', 'POST']) 
 def register():
@@ -17,7 +14,16 @@ def register():
         preferred_card_number = request.form['card']
         preferred_billing_address = request.form['address']
         
-        response = db.auth_login(fname, lname, email, password, preferred_card_number, preferred_billing_address)
+        filled_out = True
+        for field in [fname, lname, email, password, preferred_card_number, preferred_billing_address):
+            if len(field) == 0:
+                filled_out = False
+        
+        if filled_out:
+            response = db.auth_login(fname, lname, email, password, preferred_card_number, preferred_billing_address)
+            flash(response[1])
+            if response[0]:
+                return redirect(url_for('index'))
     return render_template("register.html")
 
         
