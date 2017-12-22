@@ -19,3 +19,8 @@ def auth_register(fname, lname, email, password, preferred_card_number, preferre
         return (False, "Password must be at least 6 characters")
     #add to db
     return (True, "Registration successful")    
+    
+def auth_login(email, password):
+    #check if combo in db
+    #return (False, "Email and/or password incorrect")
+    return (True, "Login successful", "Jeff")
