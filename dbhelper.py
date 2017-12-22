@@ -6,7 +6,7 @@ def connect():
             passwd = pwd.read().rstrip('\n')
             conn = pymysql.connect(host='127.0.0.1', port=3306, user='F17336Pteam3', passwd=passwd, database='F17336Pteam3')
             return conn
-    except IOError, e:
+    except IOError as e:
             print('Error: %s', e)
    	    return None
 
