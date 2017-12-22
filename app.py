@@ -87,5 +87,17 @@ def viewStations():
         return render_template('index.html', headers=headers, results=results)
     return render_template('index.html', logged_in=is_logged_in())
 
+@app.route('/reservation', methods=['GET','POST'])
+def MakeReservation():
+        print(request.path,url_for('MakeReservation'))
+        if request.method == 'POST':
+                command =request.form['command']
+                cur.execute('describe stattions;')
+                headers=cur.fetchall()
+                print(headers);
+                cur.execute(command)
+                return render_template('makereservation.html')
+        return render_template('makereservation.html',logged_in=is_logged_in())
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8003)
