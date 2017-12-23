@@ -27,5 +27,11 @@ def auth_register(fname, lname, email, password, preferred_card_number, preferre
     
 def auth_login(email, password):
     #check if combo in db
-    #return (False, "Email and/or password incorrect")
-    return (True, "Login successful", "Jeff")
+    #return (False, "Email and/or password incorrect") 
+    c = connect()
+    cur = c.cursor()
+    command="SELECT email,password FROM passengers WHERE email=%s AND password=%s;"
+    results = cur.execute(command,(email,password))
+    if results.return_rows:
+        return (True, "Login successful", "Jeff")
+    return(False,"Email and/or password incorrect ")
