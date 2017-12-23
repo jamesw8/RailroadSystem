@@ -89,20 +89,20 @@ def index():
             day = 0
         cur.execute('SELECT * FROM trains WHERE train_direction=' + str(direction) + ' and train_days=' + str(day) + ';')
         potential_trains = cur.fetchall()
+        print('POTENTIAL TRAINS\n', potential_trains)
         listings = []
-        if direction:
-            for row in potential_trains:
+        for row in potential_trains:
 
-                free, cost = checkTrip(row, departure_station, arrival_station, travel_date)
-                if free:
-                    depart, arrive = getTimes(row, departure_station, arrival_station)
-                    listings.append({
-                        'cost': cost,
-                        'departure_station': stations[departure_station][1],
-                        'arrival_station': stations[arrival_station][1],
-                        'depart_time': depart,
-                        'arrive_time': arrive
-                        })
+            free, cost = checkTrip(row, departure_station, arrival_station, travel_date)
+            if free:
+                depart, arrive = getTimes(row, departure_station, arrival_station)
+                listings.append({
+                    'cost': cost,
+                    'departure_station': stations[departure_station][1],
+                    'arrival_station': stations[arrival_station][1],
+                    'depart_time': depart,
+                    'arrive_time': arrive
+                    })
         print('LISTINGS HERE\n',listings)
         # train_days
         # 0 is weekends
