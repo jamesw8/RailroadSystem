@@ -20,11 +20,18 @@ def auth_register(fname, lname, email, password, preferred_card_number, preferre
     #add to db
     c = connect()
     cur = c.cursor()
-    command = "INSERT INTO passengers (fname,lname,email,password,preferred_card_number,preferred_billing_address) VALUES  ("+fname+","+lname+ ","+email+ ","+password+ ","+preferred_Card_number+","+preferred_billing_address+");"    
-    cur.execute(command)
+    command="INSERT INTO passengers (fname,lname,email,password,preferred_card_number,preferred_billing_address) VALUES (%s,%s,%s,%s,%s,%s);"
+    cur.execute(command,(fname,lname,email,password,preferred_card_number,preferred_billing_address))
+    c.commit() 
     return (True, "Registration successful")    
     
 def auth_login(email, password):
     #check if combo in db
-    #return (False, "Email and/or password incorrect")
-    return (True, "Login successful", "Jeff")
+    #return (False, "Email and/or password incorrect") 
+    c = connect()
+    cur = c.cursor()
+    command="SELECT email,password FROM passengers WHERE email=%s AND password=%s;"
+    results = cur.execute(command,(email,password))
+    if results.return_rows:
+        return (True, "Login successful", "Jeff")
+    return(False,"Email and/or password incorrect ")

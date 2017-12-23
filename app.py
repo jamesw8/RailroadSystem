@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, request, redirect, url_for, session
 import datetime
+from flask import Flask, render_template, flash, request, redirect, url_for, session
 import dbhelper as db
 
 app = Flask(__name__)
@@ -28,23 +28,17 @@ def register():
         password = request.form['password']
         preferred_card_number = request.form['card']
         preferred_billing_address = request.form['address']
-        c = db.connect()
-        cur = c.cursor()
-       # command = "INSERT INTO passengers (fname,lname,email,password,preferred_card_number,preferred_billing_address) VALUES ('"+fname+"','"+lname+"','"+email+"','"+password+"','"+preferred_card_number+"','"+preferred_billing_address+"');"  
-        command="INSERT INTO passengers (fname,lname,email,password,preferred_card_number,preferred_billing_address) VALUES (%s,%s,%s,%s,%s,%s);"
-        cur.execute(command,(fname,lname,email,password,preferred_card_number,preferred_billing_address))
-        return render_template('index.html',logged_in=is_logged_in) 
+        filled_out = True
+        for field in [fname, lname, email, password, preferred_card_number, preferred_billing_address]:
+            if len(field) == 0:
+                filled_out = False        
+        if filled_out:
+            response = db.auth_register(fname, lname, email, password, preferred_card_number, preferred_billing_address)
+            flash(response[1])
+            if response[0]:
+                return render_template('index.html',logged_in=is_logged_in()) 
+        return render_template('index.html',logged_in=is_logged_in()) 
     return render_template('register.html',logged_in=is_logged_in() )
-      #  filled_out = True
-       # for field in [fname, lname, email, password, preferred_card_number, preferred_billing_address]:
-        #    if len(field) == 0:
-         #       filled_out = False
-        
-        #if filled_out:
-         #   response = db.auth_register(fname, lname, email, password, preferred_card_number, preferred_billing_address)
-          #  flash(response[1])
-           # if response[0]:
-            #    return redirect(url_for('index'))
 
 @app.route('/login', methods=['GET', 'POST']) 
 def login():
@@ -65,7 +59,7 @@ def login():
             if response[0]:
                 session['username'] = response[2]
                 return redirect(url_for('index'))
-    return render_template('login.html')
+    return render_template('login.html',logged_in=is_logged_in())
 
 @app.route('/', methods=['GET', 'POST']) 
 def index():
@@ -135,6 +129,9 @@ def viewTrains():
 @app.route('/reservation', methods=['GET','POST'])
 def makeReservation():
         print(request.path,url_for('makeReservation'))
+        if not session.get('logged_in'):
+                flash("You need to log in or sign up to Book A Ticket")
+                return redirect(url_for('f17336pteam3/login'))
         if request.method == 'POST':
                 command = request.form['command']
                 cur.execute('describe stations;')

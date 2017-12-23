@@ -26,7 +26,7 @@
 				          		&nbsp;
 				          		<a class="ui button">Log Out</a>
 			        		{% else %}
-				          		<a class="ui button">Log In</a>
+				          		<a id="login"  class="ui button"  href= "/f17336pteam3{{ url_for('login') }}" >Log In</a>
 				          		&nbsp;
 				          		<a id="registration"  class="ui button" href= "/f17336pteam3{{ url_for('register') }}" >Sign Up</a>
 			        		{% endif %}
@@ -55,7 +55,10 @@
 				document.getElementById('reservations').classList.add('active');
 			} else if ("{{ request.path }}" == "{{ url_for('register') }}") {
 				document.getElementById('registration').classList.add('active');
+			} else if ("{{ request.path }}" == "{{ url_for('login') }}") {
+				document.getElementById('login').classList.add('active');
 			} 
+
 
 		</script>
 	</body>
