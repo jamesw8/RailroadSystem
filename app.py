@@ -6,6 +6,11 @@ import dbhelper as db
 app = Flask(__name__)
 app.secret_key = 'amwatrak'
 
+# branch stations
+branch_1 = [29, 38, 30, 31, 10, 11, 12, 13, 14, 15, 16, 17, 18, 1,9 20, 21, 22, 23, 24, 25]
+branch_2 = [26, 27, 28, 39, 4,0 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+branch_3 = [32, 33, 34, 35, 36, 37, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+
 def is_logged_in():
     if 'username' in session:
         return (True, session['username'])
@@ -73,32 +78,42 @@ def index():
         print(request.form)
         arrival_station = int(request.form['arrive'])
         departure_station = int(request.form['depart'])
-        # 0 is north-bound train
-        # 1 is south-bound train
+        # 0 is south-bound train
+        # 1 is north-bound train
         if arrival_station > depature_station:
-            direction = 1
-        elif arrival_station < depature_station:
             direction = 0
+        elif arrival_station < depature_station:
+            direction = 1
         else:
             flash('Arrival and Departure stations cannot be the same.')
             return render_template('index.html', stations=stations, logged_in=is_logged_in())
         travel_date = datetime.datetime.strptime(request.form['travel_date'], '%Y-%m-%d')
         
         # get date
-        if travel_date < 5: # if weekday
+        if travel_date.weekday() < 5: # if weekday
             day = 1
         else: # if weekend
             day = 0
         cur.execute('SELECT * FROM trains WHERE train_direction=' + str(direction) + ' and train_days=' + str(day) + ';')
         potential_trains = cur.fetchall()
-        for row in potential_trains:
-            
+        listings = []
+        if direction:
+            for row in potential_trains:
+
+                free, cost = checkTrip(row, departure_station, arrival_station, travel_date)
+                if free:
+                    depart, arrive = getTimes(row, departure_station, arrival_station)
+                    listings.append({
+                        'cost': cost,
+                        'departure_station': stations[departure_station][1],
+                        'arrival_station': stations[arrival_station][1],
+                        'depart_time': depart,
+                        'arrive_time': arrive
+                        })
+
         # train_days
         # 0 is weekends
         # 1 is weekdays
-        # cur.execute()
-        # cur.fetchall()
-        headers = None
         return render_template('trains.html', logged_in=is_logged_in())
     return render_template('index.html', stations=stations, logged_in=is_logged_in())
 
@@ -129,8 +144,60 @@ def makeReservation():
                 return render_template('makereservation.html')
         return render_template('makereservation.html',logged_in=is_logged_in())
 
-def checkSeats():
-    pass
+def checkTrip(train, start, end, travel_date):
+    cost = 0
+    train_id = train[0]
+    segments = getSegments(train, start, end)
+    free_seat = True
+    for segment in segments[:-1]:
+        cur.execute('SELECT * FROM segments WHERE segment_id=' + segment + ';')
+        queried_segment = cur.fetchall()[0]
+        # add cost
+        cost += queried_segment[3]
+
+        # check if free seat
+        cur.execute('SELECT * FROM seats_free WHERE train_id=' + train_id + ' and segment_id=' + queried_segment[0] + ' and seat_free_date=' + str(travel_date.year) + '-' + str(travel_date.month) + '-' + str(travel_date.day) + ';')
+        queried_seats = cur.fetchall()[0]
+        free_seats = queried_seats[3]
+        if free_seats <= 0:
+            free_seat = False
+            break
+    return free_seat, cost
+
+def reduceSeat(train, segments, travel_date):
+    for segment in segments:
+        cur.execute('UPDATE seats_free SET freeseat=freeseat-1 WHERE train_id=' + train[0] + ' and segment_id=' + segment + ' and seat_free_date=' + str(travel_date.year) + '-' + str(travel_date.month) + '-' + str(travel_date.day) + ';')
+
+def getTimes(train, start, end):
+    cur.execute('SELECT * FROM stops_at WHERE train_id=' + train[0] + ' and station=' + start + ';')
+    # time out from departure station
+    depart = cur.fetchall()[0][3]
+    cur.execute('SELECT * FROM stops_at WHERE train_id=' + train[0] + ' and station=' + end + ';')
+    # time in from arrival station
+    arrive = cur.fetchall()[0][2]
+    return depart, arrive
+
+def getSegments(train, start, end):
+    global branch_1
+    global branch_2
+    global branch_3
+
+    train_start = train[1]
+    train_end = train[2]
+    # determine which branch
+    if train_start in branch_1 and train_end in branch_1:
+        branch = branch_1
+    elif train_start in branch_2 and train_end in branch_2:
+        branch = branch_2
+    elif train_start in branch_3 and train_end in branch_3:
+        branch = branch_3
+    start_index = branch.index(start)
+    end_index = branch.index(end)
+    segments = branch[start_index:end_index+1]
+    if not segments:
+        segments = branch[end_index:start_index+1]
+    return segments
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8003)
  
