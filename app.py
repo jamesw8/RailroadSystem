@@ -67,7 +67,6 @@ def index():
     cur = c.cursor()
     cur.execute('SELECT * FROM stations;')
     stations = cur.fetchall()
-    print(stations)
     if request.method == 'POST':
         print(request.form)
         arrival_station = int(request.form['arrive'])
@@ -119,10 +118,8 @@ def viewTrains():
         command = request.form['command']
         cur.execute('describe stations;')
         headers = cur.fetchall()
-        print(headers)
         cur.execute(command)
         results = cur.fetchall()
-        print(results)
         return render_template('index.html', headers=headers, results=results)
     return render_template('index.html', logged_in=is_logged_in())
 
@@ -136,7 +133,6 @@ def makeReservation():
                 command = request.form['command']
                 cur.execute('describe stations;')
                 headers=cur.fetchall()
-                print(headers);
                 cur.execute(command)
                 return render_template('makereservation.html')
         return render_template('makereservation.html',logged_in=is_logged_in())
