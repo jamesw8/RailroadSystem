@@ -76,7 +76,7 @@ def index():
         # 1 is north-bound train
         if arrival_station > departure_station:
             direction = 0
-        elif arrival_station < depature_station:
+        elif arrival_station < departure_station:
             direction = 1
         else:
             flash('Arrival and Departure stations cannot be the same.')
