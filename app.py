@@ -88,8 +88,9 @@ def viewTrains():
 @app.route('/reservation', methods=['GET','POST'])
 def makeReservation():
         print(request.path,url_for('makeReservation'))
-	if not session.get('logged_in'):
-		return render_template('login.html',logged_in=is_logged_in())
+        if not session.get('logged_in'):
+                flash("You need to log in or sign up to Book A Ticket")
+                return render_template('login.html',logged_in=is_logged_in())
         if request.method == 'POST':
                 command = request.form['command']
                 cur.execute('describe stations;')
