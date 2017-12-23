@@ -1,10 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
-	<form method="post" action="/f17336pteam3{{ url_for('index') }}">
+	<form method="post" action="{{ url_for('index') }}">
 		<div class="ui container form">
 			<div class="field">
-				<label>Enter a SQL command here:</label>
-				<textarea rows="2" name="command" placeholder="SQL command here." required>SELECT * FROM stations;</textarea>
+				<label>Depart</label>
+				<select name="depart" class="ui selection dropdown">
+					{% if stations %}
+						{% for station in stations %}
+							<option class="item" value="{{ station[0] }}">{{ station[2] }} - {{ station[1] }}</option>
+						{% endfor %}
+					{% endif %}
+				</select>
+			</div>
+			<div class="field">
+				<label>Arrive</label>
+				<select name="arrive" class="ui selection dropdown">
+					{% if stations %}
+						{% for station in stations %}
+							<option class="item" value="{{ station[0] }}">{{ station[2] }} - {{ station[1] }}</option>
+						{% endfor %}
+					{% endif %}
+				</select>
+			</div>
+			<div class="field">
+				<label>Travel Date</label>
+				<input class="ui" type="date" name="date" />
 			</div>
 			<input class="ui button" type="submit" value="Submit" />
 		</div>
