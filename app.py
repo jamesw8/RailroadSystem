@@ -151,7 +151,7 @@ def checkTrip(train, start, end, travel_date):
         cost += queried_segment[3]
 
         # check if free seat
-        cur.execute('SELECT * FROM seats_free WHERE train_id=' + train_id + ' and segment_id=' + queried_segment[0] + ' and seat_free_date=' + str(travel_date.year) + '-' + str(travel_date.month) + '-' + str(travel_date.day) + ';')
+        cur.execute('SELECT * FROM seats_free WHERE train_id=' + str(train_id) + ' and segment_id=' + str(queried_segment[0]) + ' and seat_free_date=' + str(travel_date.year) + '-' + str(travel_date.month) + '-' + str(travel_date.day) + ';')
         queried_seats = cur.fetchall()[0]
         free_seats = queried_seats[3]
         if free_seats <= 0:
@@ -163,15 +163,15 @@ def reduceSeat(train, segments, travel_date):
     c = db.connect()
     cur = c.cursor()
     for segment in segments:
-        cur.execute('UPDATE seats_free SET freeseat=freeseat-1 WHERE train_id=' + train[0] + ' and segment_id=' + str(segment) + ' and seat_free_date=' + str(travel_date.year) + '-' + str(travel_date.month) + '-' + str(travel_date.day) + ';')
+        cur.execute('UPDATE seats_free SET freeseat=freeseat-1 WHERE train_id=' + str(train[0]) + ' and segment_id=' + str(segment) + ' and seat_free_date=' + str(travel_date.year) + '-' + str(travel_date.month) + '-' + str(travel_date.day) + ';')
 
 def getTimes(train, start, end):
     c = db.connect()
     cur = c.cursor()
-    cur.execute('SELECT * FROM stops_at WHERE train_id=' + train[0] + ' and station=' + start + ';')
+    cur.execute('SELECT * FROM stops_at WHERE train_id=' + str(train[0]) + ' and station=' + start + ';')
     # time out from departure station
     depart = cur.fetchall()[0][3]
-    cur.execute('SELECT * FROM stops_at WHERE train_id=' + train[0] + ' and station=' + end + ';')
+    cur.execute('SELECT * FROM stops_at WHERE train_id=' + str(train[0]) + ' and station=' + end + ';')
     # time in from arrival station
     arrive = cur.fetchall()[0][2]
     return depart, arrive
