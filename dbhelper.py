@@ -18,11 +18,11 @@ def auth_register(fname, lname, email, password, preferred_card_number, preferre
     if len(password) < 6:
         return (False, "Password must be at least 6 characters")
     #add to db
-        c = connect()
-        cur = c.cursor()
-        command="INSERT INTO passengers (fname,lname,email,password,preferred_card_number,preferred_billing_address) VALUES (%s,%s,%s,%s,%s,%s);"
-        cur.execute(command,(fname,lname,email,password,preferred_card_number,preferred_billing_address))
-        c.commit() 
+    c = connect()
+    cur = c.cursor()
+    command="INSERT INTO passengers (fname,lname,email,password,preferred_card_number,preferred_billing_address) VALUES (%s,%s,%s,%s,%s,%s);"
+    cur.execute(command,(fname,lname,email,password,preferred_card_number,preferred_billing_address))
+    c.commit() 
     return (True, "Registration successful")    
     
 def auth_login(email, password):
