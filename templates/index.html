@@ -5,26 +5,26 @@
 			<h1 class="ui header">Book a ticket</h1>
 			<div class="field">
 				<label>Depart</label>
-				<select name="depart" class="ui selection dropdown">
+				<select name="depart" class="ui fluid dropdown">
 					{% if stations %}
 						{% for station in stations %}
-							<option class="item" value="{{ station[0] }}">{{ station[2] }} - {{ station[1] }}</option>
+							<option value="{{ station[0] }}">{{ station[2] }} - {{ station[1] }}</option>
 						{% endfor %}
 					{% endif %}
 				</select>
 			</div>
 			<div class="field">
 				<label>Arrive</label>
-				<select name="arrive" class="ui selection dropdown">
+				<select name="arrive" class="ui fluid dropdown">
 					{% if stations %}
 						{% for station in stations %}
-							<option class="item" value="{{ station[0] }}">{{ station[2] }} - {{ station[1] }}</option>
+							<option value="{{ station[0] }}">{{ station[2] }} - {{ station[1] }}</option>
 						{% endfor %}
 					{% endif %}
 				</select>
 			</div>
 			<div class="field">
-				<label>Travel Date</label>
+				<label>Travel Date MM/DD/YYYY</label>
 				<input id="traveldate" class="ui" type="date" name="travel_date" />
 			</div>
 			<input class="ui button" type="submit" value="Submit" />
