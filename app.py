@@ -24,7 +24,7 @@ def register():
         preferred_billing_address = request.form['address']
         c = db.connect()
         cur = c.cursor()
-        command = 'INSERT INTO passengers (fname,lname,email,password,preferred_card_number,preferred_billing_address) VALUES ('+fname+','+lname+','+email+','+password+','+preferred_card_number+','+preferred_billing_address+');'  
+        command = "INSERT INTO passengers (fname,lname,email,password,preferred_card_number,preferred_billing_address) VALUES ('"+fname+"','"+lname+"','"+email+"','"+password+"','"+preferred_card_number+"','"+preferred_billing_address+"');"  
         cur.execute(command)
         return render_template('index.html', headers=headers, results=results,logged_in=is_logged_in) 
     return render_template('register.html',logged_in=is_logged_in() )
