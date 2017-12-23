@@ -23,6 +23,9 @@ def auth_register(fname, lname, email, password, preferred_card_number, preferre
     command = "INSERT INTO passangers (fname,lname,email,password,preferred_card_number,preferred_billing_address) VALUES  ("+fname+","+lname+ ","+email+ ","+password+ ","+preferred_Card_number+","+preferred_billing_address+") " 	
     cur.execute('describe passangers;')
     headers=cur.fetchall()
+    print(headers)
+    cur.execute(command)
+    results=cur.fetchall()
     print(results)
     return (True, "Registration successful")    
     
