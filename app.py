@@ -58,22 +58,21 @@ def login():
 
 @app.route('/', methods=['GET', 'POST']) 
 def index():
+    c = db.connect()
+    cur = c.cursor()
+    cur.execute('SELECT * FROM stations;')
+    stations = cur.fetchall()
+    print(stations)
     if request.method == 'POST':
-        c = db.connect()
-        cur = c.cursor()
-        command = request.form['command']
-        cur.execute('describe stations;')
-        headers = cur.fetchall()
-        print(headers)
-        cur.execute(command)
-        results = cur.fetchall()
-        print(results)
-        return render_template('index.html', headers=headers, results=results,logged_in=is_logged_in)
-    return render_template('index.html', logged_in=is_logged_in())
+        print(request.form)
+        # cur.execute()
+        # cur.fetchall()
+        headers = None
+        return render_template('trains.html', logged_in=is_logged_in())
+    return render_template('index.html', stations=stations, logged_in=is_logged_in())
 
-@app.route('/stations', methods=['GET', 'POST'])
-def viewStations():
-    print(request.path,url_for('viewStations'))
+@app.route('/trains', methods=['GET', 'POST'])
+def viewTrains():
     if request.method == 'POST':
         c = db.connect()
         cur = c.cursor()
@@ -88,16 +87,19 @@ def viewStations():
     return render_template('index.html', logged_in=is_logged_in())
 
 @app.route('/reservation', methods=['GET','POST'])
-def MakeReservation():
-        print(request.path,url_for('MakeReservation'))
+def makeReservation():
+        print(request.path,url_for('makeReservation'))
         if request.method == 'POST':
-                command =request.form['command']
-                cur.execute('describe stattions;')
+                command = request.form['command']
+                cur.execute('describe stations;')
                 headers=cur.fetchall()
                 print(headers);
                 cur.execute(command)
                 return render_template('makereservation.html')
         return render_template('makereservation.html',logged_in=is_logged_in())
 
+def checkSeats():
+    pass
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8003)
+ 
