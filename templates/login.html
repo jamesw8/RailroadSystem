@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+	<form method="post" action="/f17336pteam3{{ url_for('register') }}">
+		<div class="ui container form">
+			<div class="field">
+				<label>Enter E-mail</label>
+				<input type="text" name="email" placeholder="E-mail" required />
+			</div>
+
+			<div class="field">
+				<label>Enter Password</label>
+				<input type="password" name="password" placeholder="Password" required> 
+			</div>
+
+			<input class="ui button" type="submit" value="Submit" />
+		</div>
+	</form>
+{% endblock %}

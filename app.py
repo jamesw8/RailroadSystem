@@ -25,8 +25,7 @@ def register():
         filled_out = True
         for field in [fname, lname, email, password, preferred_card_number, preferred_billing_address]:
             if len(field) == 0:
-                filled_out = False
-        
+                filled_out = False        
         if filled_out:
             response = db.auth_register(fname, lname, email, password, preferred_card_number, preferred_billing_address)
             flash(response[1])
