@@ -145,7 +145,7 @@ def checkTrip(train, start, end, travel_date):
     segments = getSegments(train, start, end)
     free_seat = True
     for segment in segments[:-1]:
-        cur.execute('SELECT * FROM segments WHERE segment_id=' + segment + ';')
+        cur.execute('SELECT * FROM segments WHERE segment_id=' + str(segment) + ';')
         queried_segment = cur.fetchall()[0]
         # add cost
         cost += queried_segment[3]
@@ -163,7 +163,7 @@ def reduceSeat(train, segments, travel_date):
     c = db.connect()
     cur = c.cursor()
     for segment in segments:
-        cur.execute('UPDATE seats_free SET freeseat=freeseat-1 WHERE train_id=' + train[0] + ' and segment_id=' + segment + ' and seat_free_date=' + str(travel_date.year) + '-' + str(travel_date.month) + '-' + str(travel_date.day) + ';')
+        cur.execute('UPDATE seats_free SET freeseat=freeseat-1 WHERE train_id=' + train[0] + ' and segment_id=' + str(segment) + ' and seat_free_date=' + str(travel_date.year) + '-' + str(travel_date.month) + '-' + str(travel_date.day) + ';')
 
 def getTimes(train, start, end):
     c = db.connect()
