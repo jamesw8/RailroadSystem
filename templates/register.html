@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-	<form method="post" action="/f17336pteam3{{ url_for('index') }}">
+	<form method="post" action="/f17336pteam3{{ url_for('register') }}">
 		<div class="ui container form">
 			<div class="field">
 				<label>Enter First Name: </label>
-				<textarea rows="1" name="fname" placeholder="First Name" required></textarea>
+				<input type="text" name="fname" placeholder="First Name" required />
 			</div>
 			<div class="field">
 				<label>Enter Last Name: </label>
-				<textarea rows="1" name="lname" placeholder="Last Name" required></textarea>
+				<input type="text" name="lname" placeholder="Last Name" required />
 			</div>
 			<div class="field">
 				<label>Enter E-mail</label>
-				<textarea rows="1" name="email" placeholder="E-mail" required></textarea>
+				<input type="text" name="email" placeholder="E-mail" required />
 			</div>
 
 			<div class="field">
@@ -22,40 +22,16 @@
 
 			<div class="field">
 				<label>Enter Address</label>
-				<textarea rows="1" name="address" placeholder="Adress here" required></textarea>
+				<input type="text" name="address" placeholder="Address here" required />
 			</div>
 
 			<div class="field">
 				<label>Enter Card number</label>
-				<textarea rows="1" name="card" placeholder="Credit Card number" required></textarea>
+				<input type="number" name="card" placeholder="Credit Card number" required />
 			</div>
 
 
 			<input class="ui button" type="submit" value="Submit" />
 		</div>
 	</form>
-	{% if headers %}
-	<div class="ui container">
-		<table class="ui selectable celled table">
-			<thead>
-				<tr>
-					{% for attribute in headers %}
-						<th>{{ attribute[0] }}</th>
-					{% endfor %}
-				</tr>
-			</thead>
-			{% if results %}	
-				<tbody>
-					{% for result in results %}
-						<tr>
-							<td>{{ result[0] }}</td>
-							<td>{{ result[1] }}</td>
-							<td>{{ result[2] }}</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			{% endif %}
-		</table>
-	</div>
-	{% endif %}
 {% endblock %}

@@ -17,8 +17,8 @@
 			            	<i class="sidebar icon"></i>
 			        	</a>
 			        	<a id="home" class="item" href="/f17336pteam3{{ url_for('index') }}">Home</a>
-			        	<a id="stations" class="item" href="/f17336pteam3{{ url_for('viewStations') }}">Stations</a>
-			       		<a id="reservations" class="item" href="/f17336pteam3{{ url_for('MakeReservation') }}">Reserve Ticket</a>
+			        	<a id="trains" class="item" href="/f17336pteam3{{ url_for('viewTrains') }}">Trains</a>
+			       		<a id="reservations" class="item" href="/f17336pteam3{{ url_for('makeReservation') }}">Book A Ticket</a>
 			        	<a id="tickets" class="item">My Tickets</a>
 			        	<div class="right item">
 			        		{% if logged_in[0] %}
@@ -35,16 +35,25 @@
 			    </div>
 			</div>
 		</div>
+		{% with messages = get_flashed_messages() %}
+  			{% if messages %}
+			    {% for message in messages %}
+			    	<div class="ui info floating message">
+			    		<div class="header">{{ message }}</div>
+			    	</div>
+			    {% endfor %}
+		  	{% endif %}
+		{% endwith %}
 		{% block content %}
 		{% endblock %}
 		<script>
-			if ('{{ request.path }}' == '{{ url_for('index') }}') {
+			if ("{{ request.path }}" == "{{ url_for('index') }}") {
 				document.getElementById('home').classList.add('active');
-			} else if ('{{ request.path }}' == '{{ url_for('viewStations') }}') {
-				document.getElementById('stations').classList.add('active');
-			}  else if ('{{ request.path }}' == '{{ url_for('MakeReservation') }}') {
+			} else if ("{{ request.path }}" == "{{ url_for('viewTrains') }}") {
+				document.getElementById('trains').classList.add('active');
+			}  else if ("{{ request.path }}" == "{{ url_for('makeReservation') }}") {
 				document.getElementById('reservations').classList.add('active');
-			} else if ('{{ request.path }}' == '{{ url_for('register') }}') {
+			} else if ("{{ request.path }}" == "{{ url_for('register') }}") {
 				document.getElementById('registration').classList.add('active');
 			} 
 

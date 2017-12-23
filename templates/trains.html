@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+	<form method="post" action="/f17336pteam3{{ url_for('viewTrains') }}">
+		<div class="ui container form">
+			<div class="field">
+				<label>Enter a SQL command here:</label>
+				<textarea rows="2" name="command" placeholder="SQL command here." required>SELECT * FROM stations;</textarea>
+			</div>
+			<input class="ui button" type="submit" value="Submit" />
+		</div>
+	</form>
+	{% if  %}
+	<div class="ui container">
+		<table class="ui celled table">
+			<thead>
+				<tr>
+					{% for attribute in headers %}
+						<th>{{ attribute[0] }}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			{% if results %}	
+				<tbody>
+					{% for result in results %}
+						<tr>
+							<td>{{ result[0] }}</td>
+							<td>{{ result[1] }}</td>
+							<td>{{ result[2] }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			{% endif %}
+		</table>
+	</div>
+	{% endif %}
+{% endblock %}
