@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template, request, redirect, url_for, session
+import datetime
 import dbhelper as db
 
 app = Flask(__name__)
@@ -69,6 +70,31 @@ def index():
     print(stations)
     if request.method == 'POST':
         print(request.form)
+        arrival_station = int(request.form['arrive'])
+        departure_station = int(request.form['depart'])
+        # 0 is north-bound train
+        # 1 is south-bound train
+        if arrival_station > depature_station:
+            direction = 1
+        elif arrival_station < depature_station:
+            direction = 0
+        else:
+            flash('Arrival and Departure stations cannot be the same.')
+            return render_template('index.html', stations=stations, logged_in=is_logged_in())
+        travel_date = datetime.datetime.strptime(request.form['travel_date'], '%Y-%m-%d')
+        
+        # get date
+        if travel_date < 5: # if weekday
+            day = 1
+        else: # if weekend
+            day = 0
+        cur.execute('SELECT * FROM trains WHERE train_direction=' + str(direction) + ' and train_days=' + str(day) + ';')
+        potential_trains = cur.fetchall()
+        for row in potential_trains:
+            
+        # train_days
+        # 0 is weekends
+        # 1 is weekdays
         # cur.execute()
         # cur.fetchall()
         headers = None
