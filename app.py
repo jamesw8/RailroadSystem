@@ -138,6 +138,8 @@ def makeReservation():
         return render_template('makereservation.html',logged_in=is_logged_in())
 
 def checkTrip(train, start, end, travel_date):
+    c = db.connect()
+    cur = c.cursor()
     cost = 0
     train_id = train[0]
     segments = getSegments(train, start, end)
@@ -158,10 +160,14 @@ def checkTrip(train, start, end, travel_date):
     return free_seat, cost
 
 def reduceSeat(train, segments, travel_date):
+    c = db.connect()
+    cur = c.cursor()
     for segment in segments:
         cur.execute('UPDATE seats_free SET freeseat=freeseat-1 WHERE train_id=' + train[0] + ' and segment_id=' + segment + ' and seat_free_date=' + str(travel_date.year) + '-' + str(travel_date.month) + '-' + str(travel_date.day) + ';')
 
 def getTimes(train, start, end):
+    c = db.connect()
+    cur = c.cursor()
     cur.execute('SELECT * FROM stops_at WHERE train_id=' + train[0] + ' and station=' + start + ';')
     # time out from departure station
     depart = cur.fetchall()[0][3]
