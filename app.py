@@ -30,8 +30,8 @@ def register():
             response = db.auth_register(fname, lname, email, password, preferred_card_number, preferred_billing_address)
             flash(response[1])
             if response[0]:
-                return render_template('index.html',logged_in=is_logged_in) 
-        return render_template('index.html',logged_in=is_logged_in) 
+                return render_template('index.html',logged_in=is_logged_in()) 
+        return render_template('index.html',logged_in=is_logged_in()) 
     return render_template('register.html',logged_in=is_logged_in() )
 
 @app.route('/login', methods=['GET', 'POST']) 
@@ -53,7 +53,7 @@ def login():
             if response[0]:
                 session['username'] = response[2]
                 return redirect(url_for('index'))
-    return render_template('login.html')
+    return render_template('login.html',logged_in=is_logged_in())
 
 @app.route('/', methods=['GET', 'POST']) 
 def index():
