@@ -104,7 +104,7 @@ def index():
                         'depart_time': depart,
                         'arrive_time': arrive
                         })
-
+        print(listings)
         # train_days
         # 0 is weekends
         # 1 is weekdays
