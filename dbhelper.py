@@ -8,7 +8,7 @@ def connect():
 			return conn
 	except IOError as e:
 		print('Error: %s', e)
-		return None
+	return None
 
 def auth_register(fname, lname, email, password, preferred_card_number, preferred_billing_address):
 	#check that email not already tied to another user
