@@ -26,7 +26,7 @@ def register():
         cur = c.cursor()
        # command = "INSERT INTO passengers (fname,lname,email,password,preferred_card_number,preferred_billing_address) VALUES ('"+fname+"','"+lname+"','"+email+"','"+password+"','"+preferred_card_number+"','"+preferred_billing_address+"');"  
         command="INSERT INTO passengers (fname,lname,email,password,preferred_card_number,preferred_billing_address) VALUES (%s,%s,%s,%s,%s,%s);"
-	cur.execute(command,(fname,lname,email,password,preferred_card_number,preferred_billing_addressi))
+        cur.execute(command,(fname,lname,email,password,preferred_card_number,preferred_billing_address))
         return render_template('index.html',logged_in=is_logged_in) 
     return render_template('register.html',logged_in=is_logged_in() )
       #  filled_out = True
