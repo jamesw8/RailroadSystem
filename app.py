@@ -31,7 +31,7 @@ def register():
             response = db.auth_register(fname, lname, email, password, preferred_card_number, preferred_billing_address)
             flash(response[1])
             if response[0]:
-                return redirect(url_for('index')) 
+                return render_template('index.html',logged_in=is_logged_in) 
         return render_template('index.html',logged_in=is_logged_in) 
     return render_template('register.html',logged_in=is_logged_in() )
 
