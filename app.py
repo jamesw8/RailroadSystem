@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, flash, request, redirect, url_for, session
 import dbhelper as db
 
 app = Flask(__name__)
