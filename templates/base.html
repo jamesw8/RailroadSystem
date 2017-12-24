@@ -18,7 +18,7 @@
 			        	</a>
 			        	<a id="home" class="item" href="/f17336pteam3{{ url_for('index') }}">Home</a>
 			        	<a id="trains" class="item" href="/f17336pteam3{{ url_for('viewTrains') }}">Book a Ticket</a>
-			        	<a id="tickets" class="item" href="/f17336pteam3{{ url_for('viewTickets') }}">My Tickets</a>
+			        	<a id="tickets" class="item" href="/f17336pteam3{{ url_for('viewTrips') }}">My Tickets</a>
 			        	<div class="right item">
 			        		{% if logged_in[0] %}
 				          		Welcome {{ logged_in[1] }}
@@ -50,7 +50,7 @@
 				document.getElementById('home').classList.add('active');
 			} else if ("{{ request.path }}" == "{{ url_for('viewTrains') }}") {
 				document.getElementById('trains').classList.add('active');
-			} else if ("{{ request.path }}" == "{{ url_for('viewTickets') }}") {
+			} else if ("{{ request.path }}" == "{{ url_for('viewTrips') }}") {
 				document.getElementById('tickets').classList.add('active');
 			} else if ("{{ request.path }}" == "{{ url_for('register') }}") {
 				document.getElementById('registration').classList.add('active');
