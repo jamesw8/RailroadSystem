@@ -105,7 +105,7 @@ def index():
                     })
         if not listings:
             flash('Sorry, there are no listings for the specified trip')
-            return redirect(url_for('index'))
+            return redirect('/f17336pteam3'+url_for('index'))
         # print('LISTINGS HERE\n',listings)
         # train_days
         # 0 is weekends
