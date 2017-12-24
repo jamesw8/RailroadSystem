@@ -189,6 +189,8 @@ def viewTrips():
         return redirect('/f17336pteam3'+url_for('index'))
     c = db.connect()
     cur = c.cursor()
+    cur.execute('SELECT * FROM stations_copy;')
+    stations = cur.fetchall()
     cur.execute('SELECT * FROM reservations WHERE paying_passenger_id=' + str(session['id']) + ' ORDER BY reservation_date;')
     reservations = cur.fetchall()
     trips = []
