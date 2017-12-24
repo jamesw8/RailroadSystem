@@ -179,6 +179,7 @@ def viewTrains():
         cur.execute('SELECT * FROM trains WHERE train_id=' + str(train_id) + ';')
         train = cur.fetchone()
         segments = getSegments(train, temp, temp1)
+        print(type(tHd))
         reduceSeat(train, segments, tHd)
         c.commit() 
         return redirect('/f17336pteam3'+url_for('viewTrips'))
