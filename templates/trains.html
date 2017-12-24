@@ -9,6 +9,12 @@
 			<input class="ui button" type="submit" value="Submit" />
 		</div>
 	</form> -->
+<script> jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+       alert($(this).data("href"));
+        window.location = $(this).data("href");
+    });
+}); </script>
 	{% if session['listings'] %}
 	<div class="ui container">
 		<h1>Tickets from {{ session['from'] }} to {{ session['to'] }} on {{ session['date'] }}</h1>
