@@ -169,11 +169,11 @@ def reduceSeat(train, segments, travel_date):
 def getTimes(train, start, end):
     c = db.connect()
     cur = c.cursor()
-    cur.execute('SELECT * FROM stops_at WHERE train_id=' + str(train[0]) + ' and station_id=' + str(start) + ';')
+    cur.execute('SELECT * FROM stops_at_copy WHERE train_id=' + str(train[0]) + ' and station_id=' + str(start) + ';')
     # time out from departure station
     depart = cur.fetchall()[0][3]
     print(train, depart)
-    cur.execute('SELECT * FROM stops_at WHERE train_id=' + str(train[0]) + ' and station_id=' + str(end) + ';')
+    cur.execute('SELECT * FROM stops_at_copy WHERE train_id=' + str(train[0]) + ' and station_id=' + str(end) + ';')
     # time in from arrival station
     arrive = cur.fetchall()[0][2]
     print(train,arrive)
