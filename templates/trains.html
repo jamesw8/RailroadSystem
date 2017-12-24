@@ -24,8 +24,8 @@
 			</thead>
 			<tbody>
 				{% for listing in session['listings'] %}
-					<tr onclick="window.location.href='{{ url_for('viewTrains',rowData=listing) }}';" >
-						<td >{{ listing['departure_station'] }}</td>
+					<tr method="POST" action="/f17336pteam3{{url_for('viewTrains')}}">
+						<td name="dep_station" value="{{ listing['departure_station'] }}" >{{ listing['departure_station'] }}</td>
 						<td>{{ listing['arrival_station'] }}</td>
 						<td>{{ listing['depart_time'] }}</td>
 						<td>{{ listing['arrive_time'] }}</td>
