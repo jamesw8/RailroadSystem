@@ -233,7 +233,7 @@ def cancelReservation(reservation_id):
             if reservation:
                 cur.execute('DELETE FROM reservations WHERE reservation_id=' + reservation_id + ';')
                 cur.execute('DELETE FROM trips WHERE reservation_id=' + reservation_id + ';')
-                cur.execute('SELECT * FROM trains WHERE train_id=' + trip[6] + ';')
+                cur.execute('SELECT * FROM trains WHERE train_id=' + str(trip[6]) + ';')
                 train = cur.fetchone()
                 segments = getSegments(train, trip[2], trip[3])
                 for segment in segments:
