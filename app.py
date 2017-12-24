@@ -145,7 +145,7 @@ def viewTrips():
     for reservation in reservations:
         cur.execute('SELECT * FROM trips WHERE reservation_id=' + str(reservation[0]) + ';')
         trip = cur.fetchone()
-        start_seg = 
+        #start_seg = 
         trips.append({
             'reservation_id': reservation[0],
             'reservation_date': reservation[1],
