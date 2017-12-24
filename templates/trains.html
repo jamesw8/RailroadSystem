@@ -24,7 +24,7 @@
 			</thead>
 			<tbody>
 				{% for listing in session['listings'] %}
-					<tr class='clickable-row' data-href="{{ url_for('viewTrains') }}" method=POST>
+					<tr onclick="window.location.href='{{ url_for('viewTrains',rowData=row) }}';" >
 						<td >{{ listing['departure_station'] }}</td>
 						<td>{{ listing['arrival_station'] }}</td>
 						<td>{{ listing['depart_time'] }}</td>
