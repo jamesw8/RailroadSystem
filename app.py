@@ -225,9 +225,20 @@ def cancelReservation(reservation_id):
         cur = c.cursor()
         try:
             cur.execute('SELECT * FROM reservations WHERE reservation_id=' + reservation_id + ';')
-            if cur.fetchone():
+            reservation = cur.fetchone()
+            cur.execute('SELECT * FROM trips WHERE reservation_id=' + reservation_id + ';')
+            trip = cur.fetchone()
+            if reservation:
                 cur.execute('DELETE FROM reservations WHERE reservation_id=' + reservation_id + ';')
                 cur.execute('DELETE FROM trips WHERE reservation_id=' + reservation_id + ';')
+                cur.execute('SELECT * FROM trains WHERE train_id=' + trip[6] + ';')
+                train = cur.fetchone()
+                segments = getSegments(train, trip[2], trip[3])
+                for segment in segments:
+                    print(str(trip[1]))
+                    print('this is the trip date and hopefully thjis increments seat count')
+                    cur.execute('UPDATE seats_free SET freeseat=freeseat+1 WHERE train_id=' + str(train[0]) + ' and segment_id=' + str(segment) + ' and seat_free_date="' + str(trip[1]) '";')
+
                 c.commit()
                 flash('You successfully cancelled your reservation')
                 return redirect('/f17336pteam3'+url_for('viewTrips'))
