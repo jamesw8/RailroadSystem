@@ -132,7 +132,7 @@ def makeReservation():
         print(request.path,url_for('makeReservation'))
         if not session.get('logged_in'):
                 flash("You need to log in or sign up to Book A Ticket")
-                return redirect(url_for('f17336pteam3/login'))
+                return redirect(url_for('login'))
         if request.method == 'POST':
                 command = request.form['command']
                 cur.execute('describe stations;')
