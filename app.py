@@ -130,7 +130,8 @@ def viewTrains():
         return redirect('/f17336pteam3'+url_for('index'))
     if request.method == 'POST':
         # handle reserve
-        flash( request.form['dep_station']) 
+            
+        flash( request.form['select']) 
         return render_template('trains.html', logged_in=is_logged_in())
         #return render_template('index.html', logged_in=is_logged_in(), headers=headers, results=results)
     return render_template('trains.html', logged_in=is_logged_in())
