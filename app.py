@@ -237,7 +237,7 @@ def cancelReservation(reservation_id):
                 for segment in segments:
                     print(str(trip[1]))
                     print('this is the trip date and hopefully thjis increments seat count')
-                    cur.execute('UPDATE seats_free SET freeseat=freeseat+1 WHERE train_id=' + str(train[0]) + ' and segment_id=' + str(segment) + ' and seat_free_date="' + str(trip[1]) '";')
+                    cur.execute('UPDATE seats_free SET freeseat=freeseat+1 WHERE train_id=' + str(train[0]) + ' and segment_id=' + str(segment) + ' and seat_free_date="' + str(trip[1]) + '";')
 
                 c.commit()
                 flash('You successfully cancelled your reservation')
