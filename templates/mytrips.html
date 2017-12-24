@@ -18,6 +18,7 @@
 			{% if trips %}
 			<tbody>
 				{% for trip in trips %}
+				{{ trip['trip_date'] }} <= {{ trip['trip_date'].today() }}
 					{% if trip['trip_date'] <= trip['trip_date'].today() %}
 						{{ trip['trip_date'] }} <= {{ trip['trip_date'].today() }}
 						<tr>
