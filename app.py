@@ -139,8 +139,9 @@ def viewTrains():
         allinfo=info.split("//")
         print('INFO',type(allinfo),allinfo)
         passenger_id=int(session.get('id'))
-        # cur.execute("SELECT preferred_card_number,preferred_billing_address from passengers WHERE passenger_id=%s",(passenger_id))
-        # results=cur.fetchone()
+        cur.execute("SELECT preferred_card_number,preferred_billing_address from passengers WHERE passenger_id=%s",(passenger_id))
+        results=cur.fetchone()
+        print('RESULTS',results)
         # #inserting into reservations 
         # command="INSERT INTO reservations (reservation_date,paying_passenger_id,card_number,billing_address) VALUES (%s,%s,%s,%s);"
         # stampdate=session.get('date')+" "+allinfo[2]         
