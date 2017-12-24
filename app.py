@@ -150,12 +150,12 @@ def viewTrains():
         command01="SELECT station_id FROM stations WHERE station_name=%s"
         cur.execute=(command01,(allinfo[0]))
         begin=cur.fetchone()
-        cur.execute=(command01,(allinfo[1])
-        end=cur.fetchone()
+        cur.execute=(command01,(allinfo[1]))
+        end0=cur.fetchone()
         #inserting into trips table
         command2="INSERT INTO trips (trip_date,trip_station_start,trip_station_ends,fare_type,fare,trip_train_id,reservation_id) VALUES(%s,%s,%s,%s,%s,%s,%s);"
         
-        cur.execute(command,(session.get('date'),begin,end,1,allinfo[4],23,results03[0]))
+        cur.execute(command,(session.get('date'),begin,end0,1,allinfo[4],23,results03[0]))
         c.commit() 
         return render_template('index.html',logged_in=is_logged_in()) 
         #return render_template('index.html', logged_in=is_logged_in(), headers=headers, results=results)
