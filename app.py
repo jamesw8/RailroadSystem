@@ -111,7 +111,7 @@ def index():
         session['date'] = request.form['travel_date']
         session['to'] = stations[arrival_station][1]
         session['from'] = stations[departure_station][1]
-        return redirect(url_for('viewTrains'))
+        return redirect('/f17336pteam3'+url_for('viewTrains'))
     return render_template('index.html', stations=stations, logged_in=is_logged_in())
 
 @app.route('/trains', methods=['GET', 'POST'])
