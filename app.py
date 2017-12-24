@@ -160,23 +160,24 @@ def viewTrains():
         print(command01,(firstS))
         cur.execute=(command01,(firstS))
         bNa=cur.fetchone()
-        if bNa[0] is None:
-            bNa[0]=69
-        secondS=allinfo[1]
-        cur.execute=(command01,(secondS))
-        wR=cur.fetchone()
-        if wR[0] is None:
-            wR[0]=69
-        #inserting into trips table
-        command2="INSERT INTO trips (trip_date,trip_station_start,trip_station_ends,fare_type,fare,trip_train_id,reservation_id) VALUES(%s,%s,%s,%s,%s,%s,%s);"
-        temp=bNa[0]
-        temp1=wR[0]
-        fare_type=1 
-        train_id=23
-        realfare=allinfo[4] 
-        tHd=session.get('date')
-        cur.execute(command,(tHd,temp,temp1,fare_type,realfare,train_id,realresults))
-        c.commit() 
+        print('bNa\n\n\n\n',bNa)
+        # if bNa[0] is None:
+        #     bNa[0]=69
+        # secondS=allinfo[1]
+        # cur.execute=(command01,(secondS))
+        # wR=cur.fetchone()
+        # if wR[0] is None:
+        #     wR[0]=69
+        # #inserting into trips table
+        # command2="INSERT INTO trips (trip_date,trip_station_start,trip_station_ends,fare_type,fare,trip_train_id,reservation_id) VALUES(%s,%s,%s,%s,%s,%s,%s);"
+        # temp=bNa[0]
+        # temp1=wR[0]
+        # fare_type=1 
+        # train_id=23
+        # realfare=allinfo[4] 
+        # tHd=session.get('date')
+        # cur.execute(command,(tHd,temp,temp1,fare_type,realfare,train_id,realresults))
+        # c.commit() 
         return render_template('index.html',logged_in=is_logged_in()) 
         #return render_template('index.html', logged_in=is_logged_in(), headers=headers, results=results)
     return render_template('trains.html', logged_in=is_logged_in())
