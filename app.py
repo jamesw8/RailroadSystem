@@ -169,6 +169,24 @@ def makeReservation():
                 return render_template('makereservation.html')
         return render_template('makereservation.html',logged_in=is_logged_in())
 
+@app.route('/cancel', methods=['GET','POST'])
+def cancelReservation(reservation_id):
+    if not session.get('logged_in'):
+        flash("You need to log in to cancel a reservation")
+        return redirect('/f17336pteam3'+url_for('login'))
+    if request.method == 'POST':
+        c = db.connect()
+        cur = c.cursor()
+        try:
+            cur.execute('SELECT * FROM reservations WHERE reservation_id=' + reservation_id + ';')
+            if cur.fetchone():
+                cur.execute('DELETE FROM reservations WHERE reservation_id=' + reservation_id + ';')
+                flash('You successfully cancelled your reservation')
+                return redirect('/f17336pteam3'+url_for('viewTrips'))
+            flash('Error cancelling your reservation')
+        except:
+            flash('Error cancelling your reservation')
+    return redirect('/f17336pteam3'+url_for('viewTrips'))
 
 def checkTrip(train, start, end, travel_date):
     c = db.connect()
@@ -207,17 +225,6 @@ def reduceSeat(train, segments, travel_date):
     cur = c.cursor()
     for segment in segments:
         cur.execute('UPDATE seats_free SET freeseat=freeseat-1 WHERE train_id=' + str(train[0]) + ' and segment_id=' + str(segment) + ' and seat_free_date="' + str(travel_date.year) + '-' + str(travel_date.month) + '-' + str(travel_date.day) + '";')
-
-def cancelReservation(reservation):
-    c = db.connect()
-    cur = c.cursor()
-    try:
-        cur.execute('SELECT * FROM reservations WHERE reservation_id=' + reservation[0] + ';')
-        if cur.fetchone():
-            cur.execute('DELETE FROM reservations WHERE reservation_id=' + reservation[0] + ';')
-        return True
-    except:
-        return False
 
 def getTimes(train, start, end):
     c = db.connect()
