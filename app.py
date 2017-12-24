@@ -130,6 +130,7 @@ def viewTrains():
         return redirect('/f17336pteam3'+url_for('index'))
     if request.method == 'POST':
         if not is_logged_in()[0]:
+            flash('You need to log in or register to book this ticket')
             return redirect('/f17336pteam3'+url_for('viewTrains'))
         # handle reserve
         c = db.connect()
