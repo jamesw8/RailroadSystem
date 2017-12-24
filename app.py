@@ -197,8 +197,10 @@ def viewTrips():
     reservations = cur.fetchall()
     trips = []
     for reservation in reservations:
+        print('SELECT * FROM WHERE reservation_id=' + str(reservation[0]) + ';')
         cur.execute('SELECT * FROM trips WHERE reservation_id=' + str(reservation[0]) + ';')
         trip = cur.fetchone()
+        print(trip)
         trips.append({
             'reservation_id': reservation[0],
             'reservation_date': reservation[1],
