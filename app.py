@@ -57,6 +57,7 @@ def login():
             response = db.auth_login(email, password)
             flash(response[1])
             if response[0]:
+                session['id'] = response[3]
                 session['username'] = response[2]
                 return redirect('/f17336pteam3'+url_for('index'))
     return render_template('login.html',logged_in=is_logged_in())
@@ -132,11 +133,28 @@ def viewTrains():
         return render_template('index.html', logged_in=is_logged_in(), headers=headers, results=results)
     return render_template('trains.html', logged_in=is_logged_in())
 
-@app.route('/mytrips', methods=['GET', 'POST'])
+@app.route('/mytrips', methods=['GET'])
 def viewTrips():
     if not is_logged_in()[0]:
         return redirect('/f17336pteam3'+url_for('index'))
-    return render_template('mytrips.html', logged_in=is_logged_in())
+    c = db.connect()
+    cur = c.cursor()
+    cur.execute('SELECT * FROM reservations WHERE paying_passenger_id=' + str(session['id']) + ' ORDER BY reservation_date;')
+    reservations = cur.fetchall()
+    trips = []
+    for reservation in reservations:
+        cur.execute('SELECT * FROM trips WHERE reservation_id=' + str(reservation[0]) + ';')
+        trip = cur.fetchone()
+        start_seg = 
+        trips.append({
+            'reservation_id': reservation[0],
+            'reservation_date': reservation[1],
+            'departure_station': stations[int(trip['trip_station_start'])][1],
+            'arrival_station': stations[int(trip['trip_station_ends'])][1],
+            'trip_date': trip['trip_date'],
+            'fare': trip['fare']
+            })
+    return render_template('mytrips.html', trips=trips, logged_in=is_logged_in())
 
 @app.route('/reservation', methods=['GET','POST'])
 def makeReservation():
@@ -189,6 +207,17 @@ def reduceSeat(train, segments, travel_date):
     cur = c.cursor()
     for segment in segments:
         cur.execute('UPDATE seats_free SET freeseat=freeseat-1 WHERE train_id=' + str(train[0]) + ' and segment_id=' + str(segment) + ' and seat_free_date="' + str(travel_date.year) + '-' + str(travel_date.month) + '-' + str(travel_date.day) + '";')
+
+def cancelReservation(reservation):
+    c = db.connect()
+    cur = c.cursor()
+    try:
+        cur.execute('SELECT * FROM reservations WHERE reservation_id=' + reservation[0] + ';')
+        if cur.fetchone():
+            cur.execute('DELETE FROM reservations WHERE reservation_id=' + reservation[0] + ';')
+        return True
+    except:
+        return False
 
 def getTimes(train, start, end):
     c = db.connect()
