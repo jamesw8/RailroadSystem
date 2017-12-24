@@ -169,7 +169,7 @@ def makeReservation():
                 return render_template('makereservation.html')
         return render_template('makereservation.html',logged_in=is_logged_in())
 
-@app.route('/cancel', methods=['GET','POST'])
+@app.route('/cancel/<reservation_id>', methods=['GET','POST'])
 def cancelReservation(reservation_id):
     if not session.get('logged_in'):
         flash("You need to log in to cancel a reservation")
