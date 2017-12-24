@@ -186,20 +186,17 @@ def viewTrips():
     cur = c.cursor()
     cur.execute('SELECT * FROM stations_copy;')
     stations = cur.fetchall()
-    print('STATIONS\n',stations)
     cur.execute('SELECT * FROM reservations WHERE paying_passenger_id=' + str(session['id']) + ' ORDER BY reservation_date;')
     reservations = cur.fetchall()
     trips = []
     for reservation in reservations:
         cur.execute('SELECT * FROM trips WHERE reservation_id=' + str(reservation[0]) + ';')
         trip = cur.fetchone()
-        print('TRIP\n',trip)
-        #start_seg = 
         trips.append({
             'reservation_id': reservation[0],
             'reservation_date': reservation[1],
-            #'departure_station': stations[int(trip['trip_station_start'])][1],
-            #'arrival_station': stations[int(trip['trip_station_ends'])][1],
+            'departure_station': stations[int(trip['trip_station_start'])][1],
+            'arrival_station': stations[int(trip['trip_station_ends'])][1],
             'trip_date': trip['trip_date'],
             'fare': trip['fare']
             })
