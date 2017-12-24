@@ -65,7 +65,7 @@ def login():
 def index():
     c = db.connect()
     cur = c.cursor()
-    cur.execute('SELECT * FROM stations;')
+    cur.execute('SELECT * FROM stations_copy;')
     stations = cur.fetchall()
     if request.method == 'POST':
         print(request.form)
