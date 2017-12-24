@@ -125,7 +125,7 @@ def index():
     return render_template('index.html', stations=stations, logged_in=is_logged_in())
 
 @app.route('/trains', methods=['GET', 'POST'])
-def viewTrains():
+def viewTrains(rowData):
     if not 'listings' in session:
         return redirect('/f17336pteam3'+url_for('index'))
     if request.method == 'POST':
