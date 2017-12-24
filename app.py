@@ -61,6 +61,12 @@ def login():
                 return redirect('/f17336pteam3'+url_for('index'))
     return render_template('login.html',logged_in=is_logged_in())
 
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+    if is_logged_in()[0]:
+        session.pop('username')
+    return redirect('/f17336pteam3'+url_for('index'))
+
 @app.route('/', methods=['GET', 'POST']) 
 def index():
     c = db.connect()

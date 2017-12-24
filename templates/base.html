@@ -24,7 +24,7 @@
 			        		{% if logged_in[0] %}
 				          		Welcome {{ logged_in[1] }}
 				          		&nbsp;
-				          		<a class="ui button">Log Out</a>
+				          		<a class="ui button" href="/f17336pteam3{{ url_for('logout') }}">Log Out</a>
 			        		{% else %}
 				          		<a id="login"  class="ui button"  href= "/f17336pteam3{{ url_for('login') }}" >Log In</a>
 				          		&nbsp;
