@@ -134,7 +134,7 @@ def viewTrains():
         cur = c.cursor()
         info=request.form['select'] 
         allinfo=info.split("//")
-        passenger_id=int(session['id'])
+        passenger_id=int(session.get('id'))
         cur.execute("SELECT preferred_card_number,preferred_billing_address from passengers WHERE passenger_id=%d",(passenger_id))
         results=cur.fetchone()
         command="INSERT INTO reservations (reservation_date,paying_passenger_id,card_number,billing_address) VALUES (%s,%d,%s,%s);"
