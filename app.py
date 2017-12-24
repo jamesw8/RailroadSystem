@@ -133,7 +133,6 @@ def viewTrains():
         c = db.connect()
         cur = c.cursor()
         info=request.form['select'] 
-        flash(info)
         allinfo=info.split("//")
         passenger_id=int(session.get('id'))
         cur.execute("SELECT preferred_card_number,preferred_billing_address from passengers WHERE passenger_id=%s",(passenger_id))
@@ -151,11 +150,11 @@ def viewTrains():
             results03[0]=69
         #getting station i'ds
         command01="SELECT station_id FROM stations WHERE station_name LIKE %s"
-        cur.execute=(command01,(allinfo[0]))
+        cur.execute=(command01,(allinfo[1]))
         bNa=cur.fetchone()
         if bNa[0] is None:
             bNa[0]=69
-        cur.execute=(command01,(allinfo[0]))
+        cur.execute=(command01,(allinfo[2]))
         wR=cur.fetchone()
         if wR[0] is None:
             wR[0]=69
