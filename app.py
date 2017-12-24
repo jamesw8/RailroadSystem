@@ -151,7 +151,7 @@ def viewTrains():
         #getting station i'ds
         command01="SELECT station_id FROM stations WHERE station_name LIKE %s"
         firstS=allinfo[0]
-        cur.execute=(command01,(firstS)
+        cur.execute=(command01,(firstS))
         bNa=cur.fetchone()
         if bNa[0] is None:
             bNa[0]=69
