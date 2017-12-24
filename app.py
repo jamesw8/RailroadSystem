@@ -160,8 +160,11 @@ def viewTrains():
             end0[0]=69
         #inserting into trips table
         command2="INSERT INTO trips (trip_date,trip_station_start,trip_station_ends,fare_type,fare,trip_train_id,reservation_id) VALUES(%s,%s,%s,%s,%s,%s,%s);"
-        
-        cur.execute(command,(session.get('date'),begin[0],end0[0],"1",allinfo[4],"23",results03[0]))
+       temp=begin[0]
+       temp1=end0[0]
+       fare_type=1 
+       train_id=23
+        cur.execute(command,(session.get('date'),temp,temp1,fare_type,allinfo[4],train_id,results03[0]))
         c.commit() 
         return render_template('index.html',logged_in=is_logged_in()) 
         #return render_template('index.html', logged_in=is_logged_in(), headers=headers, results=results)
