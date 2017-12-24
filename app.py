@@ -190,6 +190,7 @@ def getSegments(train, start, end):
         branch = branch_2
     elif train_start in branch_3 and train_end in branch_3:
         branch = branch_3
+    print('CHOSEN BRANCH\n', branch)
     start_index = branch.index(start)
     end_index = branch.index(end)
     segments = branch[start_index:end_index+1]
