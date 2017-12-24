@@ -177,7 +177,7 @@ def viewTrains():
         realfare=allinfo[4] 
         tHd=session.get('date')
         print(str(tHd), str(temp), str(temp1), str(fare_type), str(realfare), str(train_id), str(realresults))
-        cur.execute(command.format(tHd,temp,temp1,fare_type,realfare,train_id,realresults))
+        # cur.execute(command.format(tHd,temp,temp1,fare_type,realfare,train_id,realresults))
         c.commit() 
         return render_template('index.html',logged_in=is_logged_in()) 
         #return render_template('index.html', logged_in=is_logged_in(), headers=headers, results=results)
