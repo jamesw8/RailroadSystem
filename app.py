@@ -189,7 +189,7 @@ def getSegments(train, start, end):
     print(train_start in branch_1 and train_end in branch_1)
     print(str(train_start)+' in '+str(branch_2)+' and '+str(train_end)+' in '+str(branch_2))
     print(train_start in branch_2 and train_end in branch_2)
-    print(str(train_start)+' in '+str(branch_3)+' and '+str(train_end)+' in 'str(branch_3))
+    print(str(train_start)+' in '+str(branch_3)+' and '+str(train_end)+' in '+str(branch_3))
     print(train_start in branch_3 and train_end in branch_3)
 
     if train_start in branch_1 and train_end in branch_1:
