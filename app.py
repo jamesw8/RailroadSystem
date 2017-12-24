@@ -169,7 +169,7 @@ def viewTrains():
         if wR[0] is None:
             wR[0]=69
         #inserting into trips table
-        command2="INSERT INTO trips (trip_date,trip_station_start,trip_station_ends,fare_type,fare,trip_train_id,reservation_id) VALUES(%s,%s,%s,%s,%s,%s,%s);"
+        command2="INSERT INTO trips (trip_date,trip_station_start,trip_station_ends,fare_type,fare,trip_train_id,reservation_id) VALUES({},{},{},{},{},{},{});"
         temp=bNa[0]
         temp1=wR[0]
         fare_type=1 
@@ -177,7 +177,7 @@ def viewTrains():
         realfare=allinfo[4] 
         tHd=session.get('date')
         print(str(tHd), str(temp), str(temp1), str(fare_type), str(realfare), str(train_id), str(realresults))
-        cur.execute(command,(tHd,temp,temp1,fare_type,realfare,train_id,realresults))
+        cur.execute(command.format(tHd,temp,temp1,fare_type,realfare,train_id,realresults))
         c.commit() 
         return render_template('index.html',logged_in=is_logged_in()) 
         #return render_template('index.html', logged_in=is_logged_in(), headers=headers, results=results)
