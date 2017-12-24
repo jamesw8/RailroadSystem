@@ -153,9 +153,9 @@ def checkTrip(train, start, end, travel_date):
     for segment in segments[:-1]:
         cur.execute('SELECT * FROM segments WHERE seg_n_end=' + str(segment) + ';')
         queried_segment = cur.fetchall()
-        if queried_segment:
+        try:
             queried_segment = queried_segment[0]
-        else:
+        except:
             # segment doesn't exist
             return False, 0
         # add cost
