@@ -137,9 +137,19 @@ def viewTrains():
         passenger_id=int(session.get('id'))
         cur.execute("SELECT preferred_card_number,preferred_billing_address from passengers WHERE passenger_id=%s",(passenger_id))
         results=cur.fetchone()
+        #inserting into reservations 
         command="INSERT INTO reservations (reservation_date,paying_passenger_id,card_number,billing_address) VALUES (%s,%s,%s,%s);"
         stampdate=session.get('date')+" "+allinfo[2]         
         cur.execute(command,(stampdate,passenger_id,results[0],results[1]))
+        cur.commit()
+        #getting reservation_id
+        command0="SELECT reservation_id from reservations WHERE reservation_date=%s AND paying_passenger_id=%s"
+        cur.execute(command0,(stampdate,passenger_id))
+        results03=cur.fetchone()
+        #inserting into trips table
+        command2="INSERT INTO trips (trip_date,trip_station_start,trip_station_ends,fare_type,fare,trip_train_id,reservation_id) VALUES(%s,%s,%s,%s,%s,%s,%s);"
+        
+        cur.execute(command,(session.get('date'),allinfo[0],allinfo[1],1,allinfo[4],23,results03[0]))
         c.commit() 
         return render_template('index.html',logged_in=is_logged_in()) 
         #return render_template('index.html', logged_in=is_logged_in(), headers=headers, results=results)
