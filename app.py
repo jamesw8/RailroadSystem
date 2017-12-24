@@ -71,9 +71,6 @@ def index():
         print(request.form)
         arrival_station = int(request.form['arrive'])
         departure_station = int(request.form['depart'])
-        print(stations)
-        print(departure_station, arrival_station)
-        print(stations[departure_station], stations[arrival_station])
         # 0 is south-bound train
         # 1 is north-bound train
         if arrival_station > departure_station:
@@ -101,8 +98,8 @@ def index():
                 depart, arrive = getTimes(row, departure_station, arrival_station)
                 listings.append({
                     'cost': str(cost),
-                    'departure_station': stations[departure_station][1],
-                    'arrival_station': stations[arrival_station][1],
+                    'departure_station': stations[departure_station-1][1],
+                    'arrival_station': stations[arrival_station-1][1],
                     'depart_time': str(depart),
                     'arrive_time': str(arrive)
                     })
@@ -112,8 +109,8 @@ def index():
         # 1 is weekdays
         session['listings'] = listings
         session['date'] = request.form['travel_date']
-        session['to'] = stations[arrival_station][1]
-        session['from'] = stations[departure_station][1]
+        session['to'] = stations[arrival_station-1][1]
+        session['from'] = stations[departure_station-1][1]
         return redirect('/f17336pteam3'+url_for('viewTrains'))
     return render_template('index.html', stations=stations, logged_in=is_logged_in())
 
