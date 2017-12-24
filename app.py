@@ -180,7 +180,7 @@ def getSegments(train, start, end):
     global branch_1
     global branch_2
     global branch_3
-
+    print(train, start, end)
     train_start = train[1]
     train_end = train[2]
     # determine which branch
