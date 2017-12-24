@@ -169,7 +169,7 @@ def viewTrains():
         if wR[0] is None:
             wR[0]=69
         #inserting into trips table
-        command2="INSERT INTO trips (trip_date,trip_station_start,trip_station_ends,fare_type,fare,trip_train_id,reservation_id) VALUES({},{},{},{},{},{},{});"
+        command2="INSERT INTO trips (trip_date,trip_station_start,trip_station_ends,fare_type,fare,trip_train_id,reservation_id) VALUES(\"{}\",{},{},{},{},{},{});"
         temp=bNa[0]
         temp1=wR[0]
         fare_type=1 
