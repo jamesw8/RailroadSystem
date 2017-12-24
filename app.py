@@ -137,11 +137,9 @@ def viewTrains():
         cur = c.cursor()
         info=request.form['select'] 
         allinfo=info.split("//")
-        print('INFO',type(allinfo),allinfo)
         passenger_id=int(session.get('id'))
         cur.execute("SELECT preferred_card_number,preferred_billing_address from passengers WHERE passenger_id=%s",(passenger_id))
         results=cur.fetchone()
-        print('RESULTS',results)
         #inserting into reservations 
         command="INSERT INTO reservations (reservation_date,paying_passenger_id,card_number,billing_address) VALUES (%s,%s,%s,%s);"
         stampdate=session.get('date')+" "+allinfo[2]         
@@ -157,10 +155,8 @@ def viewTrains():
         #getting station i'ds
         firstS=allinfo[0]
         command01='SELECT station_id FROM stations WHERE station_name LIKE "{}";'
-        print(command01.format(firstS))
         cur.execute(command01.format(firstS))
         bNa=cur.fetchone()
-        print('bNa\n',bNa)
         if bNa[0] is None:
             bNa[0]=69
         secondS=allinfo[1]
@@ -176,7 +172,6 @@ def viewTrains():
         train_id=23
         realfare=allinfo[4] 
         tHd=session.get('date')
-        print(command2.format(tHd,temp,temp1,fare_type,realfare,train_id,realresults))
         cur.execute(command2.format(tHd,temp,temp1,fare_type,realfare,train_id,realresults))
         c.commit() 
         return render_template('index.html',logged_in=is_logged_in()) 
@@ -191,12 +186,14 @@ def viewTrips():
     cur = c.cursor()
     cur.execute('SELECT * FROM stations_copy;')
     stations = cur.fetchall()
+    print('STATIONS\n',stations)
     cur.execute('SELECT * FROM reservations WHERE paying_passenger_id=' + str(session['id']) + ' ORDER BY reservation_date;')
     reservations = cur.fetchall()
     trips = []
     for reservation in reservations:
         cur.execute('SELECT * FROM trips WHERE reservation_id=' + str(reservation[0]) + ';')
         trip = cur.fetchone()
+        print('TRIP\n',trip)
         #start_seg = 
         trips.append({
             'reservation_id': reservation[0],
@@ -284,11 +281,9 @@ def getTimes(train, start, end):
     cur.execute('SELECT * FROM stops_at_copy WHERE train_id=' + str(train[0]) + ' and station_id=' + str(start) + ';')
     # time out from departure station
     depart = cur.fetchall()[0][3]
-    print(train, depart)
     cur.execute('SELECT * FROM stops_at_copy WHERE train_id=' + str(train[0]) + ' and station_id=' + str(end) + ';')
     # time in from arrival station
     arrive = cur.fetchall()[0][2]
-    print(train,arrive)
     if train[3]:
         depart, arrive = arrive, depart
     return depart, arrive
@@ -297,17 +292,17 @@ def getSegments(train, start, end):
     global branch_1
     global branch_2
     global branch_3
-    print(train, start, end)
+
     train_start = train[1]
     train_end = train[2]
     # determine which branch
-    print('RESULTS',type(start),type(end))
-    print(str(start)+' in '+str(branch_1)+' and '+str(end)+' in '+str(branch_1))
-    print(start in branch_1 and end in branch_1)
-    print(str(start)+' in '+str(branch_2)+' and '+str(end)+' in '+str(branch_2))
-    print(start in branch_2 and end in branch_2)
-    print(str(start)+' in '+str(branch_3)+' and '+str(end)+' in '+str(branch_3))
-    print(start in branch_3 and end in branch_3)
+    # print('RESULTS',type(start),type(end))
+    # print(str(start)+' in '+str(branch_1)+' and '+str(end)+' in '+str(branch_1))
+    # print(start in branch_1 and end in branch_1)
+    # print(str(start)+' in '+str(branch_2)+' and '+str(end)+' in '+str(branch_2))
+    # print(start in branch_2 and end in branch_2)
+    # print(str(start)+' in '+str(branch_3)+' and '+str(end)+' in '+str(branch_3))
+    # print(start in branch_3 and end in branch_3)
 
     if start in branch_1 and end in branch_1:
         branch = branch_1
