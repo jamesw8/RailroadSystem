@@ -31,10 +31,10 @@ def auth_login(email, password):
     #return (False, "Email and/or password incorrect") 
     c = connect()
     cur = c.cursor()
-    command="SELECT fname,email,password FROM passengers WHERE email=%s;"
+    command="SELECT passenger_id,fname,email,password FROM passengers WHERE email=%s;"
     cur.execute(command,(email))
     results = cur.fetchone()
     if results is not None:
         if check_password_hash(results[2], password):
-            return (True, "Login successful", results[0])
+            return (True, "Login successful", results[1], results[0])
     return(False,"Email and/or password incorrect")
