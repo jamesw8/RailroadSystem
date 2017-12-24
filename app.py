@@ -103,6 +103,9 @@ def index():
                     'depart_time': str(depart),
                     'arrive_time': str(arrive)
                     })
+        if not listings:
+            flash('Sorry, there are no listings for the specified trip')
+            return redirect(url_for('index'))
         # print('LISTINGS HERE\n',listings)
         # train_days
         # 0 is weekends
@@ -148,13 +151,13 @@ def checkTrip(train, start, end, travel_date):
         return False, 0
     free_seat = True
     for segment in segments[:-1]:
-        cur.execute('SELECT * FROM segments WHERE segment_id=' + str(segment) + ';')
+        cur.execute('SELECT * FROM segments WHERE seg_n_end=' + str(segment) + ';')
         queried_segment = cur.fetchall()[0] 
         # add cost
         cost += queried_segment[3]
 
         # check if free seat
-        cur.execute('SELECT * FROM seats_free WHERE train_id=' + str(train_id) + ' and segment_id=' + str(queried_segment[0]) + ' and seat_free_date="' + str(travel_date.year) + '-' + str(travel_date.month) + '-' + str(travel_date.day) + '";')
+        cur.execute('SELECT * FROM seats_free WHERE train_id=' + str(train_id) + ' and seg_n_end=' + str(queried_segment[1]) + ' and seat_free_date="' + str(travel_date.year) + '-' + str(travel_date.month) + '-' + str(travel_date.day) + '";')
         queried_seats = cur.fetchall()[0]
         free_seats = queried_seats[3]
         if free_seats <= 0:
