@@ -294,6 +294,7 @@ def reduceSeat(train, segments, travel_date):
     for segment in segments:
         print('UPDATESTATEMENT\n','UPDATE seats_free SET freeseat=freeseat-1 WHERE train_id=' + str(train[0]) + ' and segment_id=' + str(segment) + ' and seat_free_date="' + str(travel_date.year) + '-' + str(travel_date.month) + '-' + str(travel_date.day) + '";')
         cur.execute('UPDATE seats_free SET freeseat=freeseat-1 WHERE train_id=' + str(train[0]) + ' and segment_id=' + str(segment) + ' and seat_free_date="' + str(travel_date.year) + '-' + str(travel_date.month) + '-' + str(travel_date.day) + '";')
+    c.commit()
 
 def getTimes(train, start, end):
     c = db.connect()
