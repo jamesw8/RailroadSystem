@@ -177,6 +177,8 @@ def getTimes(train, start, end):
     # time in from arrival station
     arrive = cur.fetchall()[0][2]
     print(train,arrive)
+    if train[3]:
+        depart, arrive = arrive, depart
     return depart, arrive
 
 def getSegments(train, start, end):
