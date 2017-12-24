@@ -18,8 +18,8 @@
 			<tbody>
 				{% for listing in session['listings'] %}
 					<tr>
-						<td><input class="ui button" name="choice" type="submit" value="Submit"> </td>
-						<td>{{ listing['departure_station'] }}</td>
+						<td><input type="radio" name="select" type="submit" value="this"> </td>
+						<td >{{ listing['departure_station'] }}</td>
 						<td>{{ listing['arrival_station'] }}</td>
 						<td>{{ listing['depart_time'] }}</td>
 						<td>{{ listing['arrive_time'] }}</td>
