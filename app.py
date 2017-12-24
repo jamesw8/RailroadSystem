@@ -107,7 +107,7 @@ def index():
         # train_days
         # 0 is weekends
         # 1 is weekdays
-        return render_template('trains.html', logged_in=is_logged_in())
+        return render_template('trains.html', logged_in=is_logged_in(), listings=listings, travel_date=request.form['travel_date'], frm=stations[departure_station][1], to=stations[arrival_station][1])
     return render_template('index.html', stations=stations, logged_in=is_logged_in())
 
 @app.route('/trains', methods=['GET', 'POST'])
@@ -121,7 +121,7 @@ def viewTrains():
         cur.execute(command)
         results = cur.fetchall()
         return render_template('index.html', logged_in=is_logged_in(), headers=headers, results=results)
-    return render_template('index.html', logged_in=is_logged_in())
+    return render_template('trains.html', logged_in=is_logged_in())
 
 @app.route('/reservation', methods=['GET','POST'])
 def makeReservation():

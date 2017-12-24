@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-	<form method="post" action="/f17336pteam3{{ url_for('viewTrains') }}">
+	<!-- <form method="post" action="/f17336pteam3{{ url_for('viewTrains') }}">
 		<div class="ui container form">
 			<div class="field">
 				<label>Enter a SQL command here:</label>
@@ -8,28 +8,31 @@
 			</div>
 			<input class="ui button" type="submit" value="Submit" />
 		</div>
-	</form>
-	{% if headers %}
+	</form> -->
+	{% if listings %}
 	<div class="ui container">
-		<table class="ui celled table">
+		<h1>Tickets from {{ frm }} to {{ to }} on {{ travel_date }}</h1>
+		<table class="ui selectable celled table">
 			<thead>
 				<tr>
-					{% for attribute in headers %}
-						<th>{{ attribute[0] }}</th>
-					{% endfor %}
+					<th>Departure Station</th>
+					<th>Arrival Station</th>
+					<th>Time of Departure</th>
+					<th>Time of Arrival</th>
+					<th>Cost of Ticket</th>
 				</tr>
 			</thead>
-			{% if results %}	
-				<tbody>
-					{% for result in results %}
-						<tr>
-							<td>{{ result[0] }}</td>
-							<td>{{ result[1] }}</td>
-							<td>{{ result[2] }}</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			{% endif %}
+			<tbody>
+				{% for listing in listings %}
+					<tr>
+						<td>{{ listing['departure_station'] }}</td>
+						<td>{{ listing['arrival_station'] }}</td>
+						<td>{{ listing['depart_time'] }}</td>
+						<td>{{ listing['arrive_time'] }}</td>
+						<td>{{ listing['cost'] }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
 		</table>
 	</div>
 	{% endif %}
