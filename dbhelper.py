@@ -38,6 +38,6 @@ def auth_login(email, password):
     for row in results:
          exist=True
     if exist:
-        if check_password_hash(results[4], password):
+        if check_password_hash(results[2], password):
             return (True, "Login successful", results[0])
     return(False,"Email and/or password incorrect")
