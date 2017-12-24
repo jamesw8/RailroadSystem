@@ -37,5 +37,5 @@ def auth_login(email, password):
     for row in results:
          exist=True
     if exist:
-        return (True, "Login successful", "Jeff")
+        return (True, "Login successful", email)
     return(False,"Email and/or password incorrect ")
