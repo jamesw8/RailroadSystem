@@ -137,6 +137,7 @@ def viewTrains():
         cur = c.cursor()
         info=request.form['select'] 
         allinfo=info.split("//")
+        print(type(allinfo),allinfo)
         passenger_id=int(session.get('id'))
         cur.execute("SELECT preferred_card_number,preferred_billing_address from passengers WHERE passenger_id=%s",(passenger_id))
         results=cur.fetchone()
