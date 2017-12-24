@@ -43,7 +43,7 @@ def register():
 @app.route('/login', methods=['GET', 'POST']) 
 def login():
     if is_logged_in()[0]:
-        return redirect(url_for('index'))
+        return redirect('/f17336pteam3'+url_for('index'))
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
@@ -120,7 +120,7 @@ def index():
 @app.route('/trains', methods=['GET', 'POST'])
 def viewTrains():
     if not 'listings' in session:
-        return redirect(url_for('index'))
+        return redirect('/f17336pteam3'+url_for('index'))
     if request.method == 'POST':
         # handle reserve
         return render_template('index.html', logged_in=is_logged_in(), headers=headers, results=results)
