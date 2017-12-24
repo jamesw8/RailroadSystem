@@ -25,7 +25,7 @@
 						<td>{{ trip['departure_station'] }}</td>
 						<td>{{ trip['arrival_station'] }}</td>
 						<td>{{ trip['fare'] }}</td>
-						<td><a class="ui button" href="/f17336pteam3{{ url_for('cancelReservation', reservation_id=str(trip['reservation_id'])) }}">Cancel</a></td>
+						<td><a class="ui button" href="/f17336pteam3{{ url_for('cancelReservation', reservation_id=(trip['reservation_id']|string)) }}">Cancel</a></td>
 					</tr>
 				{% endfor %}
 			</tbody>
