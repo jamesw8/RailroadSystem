@@ -126,6 +126,11 @@ def viewTrains():
         return render_template('index.html', logged_in=is_logged_in(), headers=headers, results=results)
     return render_template('trains.html', logged_in=is_logged_in())
 
+@app.route('/mytrips', methods=['GET', 'POST'])
+def viewTrips():
+    if not is_logged_in()[0]:
+        return redirect('/f17336pteam3'+url_for('index'))
+    return render_template('mytrips.html', logged_in=is_logged_in())
 
 @app.route('/reservation', methods=['GET','POST'])
 def makeReservation():
@@ -139,6 +144,7 @@ def makeReservation():
                 cur.execute(command)
                 return render_template('makereservation.html')
         return render_template('makereservation.html',logged_in=is_logged_in())
+
 
 def checkTrip(train, start, end, travel_date):
     c = db.connect()

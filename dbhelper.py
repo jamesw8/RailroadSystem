@@ -1,4 +1,5 @@
 import pymysql
+from werkzeug import generate_password_hash, check_password_hash
 
 def connect():
     try:
@@ -21,7 +22,7 @@ def auth_register(fname, lname, email, password, preferred_card_number, preferre
     c = connect()
     cur = c.cursor()
     command="INSERT INTO passengers (fname,lname,email,password,preferred_card_number,preferred_billing_address) VALUES (%s,%s,%s,%s,%s,%s);"
-    cur.execute(command,(fname,lname,email,password,preferred_card_number,preferred_billing_address))
+    cur.execute(command,(fname,lname,email,generate_password_hash(password),preferred_card_number,preferred_billing_address))
     c.commit() 
     return (True, "Registration successful")    
     
@@ -30,12 +31,13 @@ def auth_login(email, password):
     #return (False, "Email and/or password incorrect") 
     c = connect()
     cur = c.cursor()
-    command="SELECT email,password FROM passengers WHERE email=%s AND password=%s;"
-    cur.execute(command,(email,password))
+    command="SELECT fname,email,password FROM passengers WHERE email=%s;"
+    cur.execute(command,(email))
     results = cur.fetchall()
     exist=False
     for row in results:
          exist=True
     if exist:
-        return (True, "Login successful", "Jeff")
-    return(False,"Email and/or password incorrect ")
+        if check_password_hash(results[0][4], password):
+            return (True, "Login successful", results[0][0])
+    return(False,"Email and/or password incorrect")
