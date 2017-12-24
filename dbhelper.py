@@ -30,12 +30,12 @@ def auth_login(email, password):
     #return (False, "Email and/or password incorrect") 
     c = connect()
     cur = c.cursor()
-    command="SELECT email,password FROM passengers WHERE email=%s AND password=%s;"
+    command="SELECT fname,email,password FROM passengers WHERE email=%s AND password=%s;"
     cur.execute(command,(email,password))
     results = cur.fetchall()
     exist=False
     for row in results:
          exist=True
     if exist:
-        return (True, "Login successful", email)
+        return (True, "Login successful", results[0])
     return(False,"Email and/or password incorrect ")
