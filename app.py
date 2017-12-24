@@ -146,6 +146,7 @@ def viewTrains():
         command0="SELECT reservation_id from reservations WHERE reservation_date=%s AND paying_passenger_id=%s"
         cur.execute(command0,(stampdate,passenger_id))
         results03=cur.fetchone()
+        realresults=results03[0]
         if results03[0] is None:
             results03[0]=69
         #getting station i'ds
@@ -167,7 +168,7 @@ def viewTrains():
         fare_type=1 
         train_id=23
         realfare=allinfo[4] 
-        cur.execute(command,(session.get('date'),temp,temp1,fare_type,realfare,train_id,results03[0]))
+        cur.execute(command,(session.get('date'),temp,temp1,fare_type,realfare,train_id,realresults))
         c.commit() 
         return render_template('index.html',logged_in=is_logged_in()) 
         #return render_template('index.html', logged_in=is_logged_in(), headers=headers, results=results)
