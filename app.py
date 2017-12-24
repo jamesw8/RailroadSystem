@@ -37,7 +37,7 @@ def register():
             flash(response[1])
             if response[0]:
                 return render_template('index.html',logged_in=is_logged_in()) 
-        return render_template('index.html',logged_in=is_logged_in()) 
+        return render_template('register.html',logged_in=is_logged_in()) 
     return render_template('register.html',logged_in=is_logged_in() )
 
 @app.route('/login', methods=['GET', 'POST']) 
