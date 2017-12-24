@@ -142,21 +142,22 @@ def viewTrains():
         cur.execute("SELECT preferred_card_number,preferred_billing_address from passengers WHERE passenger_id=%s",(passenger_id))
         results=cur.fetchone()
         print('RESULTS',results)
-        # #inserting into reservations 
-        # command="INSERT INTO reservations (reservation_date,paying_passenger_id,card_number,billing_address) VALUES (%s,%s,%s,%s);"
-        # stampdate=session.get('date')+" "+allinfo[2]         
-        # cur.execute(command,(stampdate,passenger_id,results[0],results[1]))
-        # c.commit()
-        # #getting reservation_id
-        # command0="SELECT reservation_id from reservations WHERE reservation_date=%s AND paying_passenger_id=%s"
-        # cur.execute(command0,(stampdate,passenger_id))
-        # results03=cur.fetchone()
-        # realresults=results03[0]
-        # if results03[0] is None:
-        #     results03[0]=69
-        # #getting station i'ds
-        # command01="SELECT station_id FROM stations WHERE station_name LIKE %s"
-        # firstS=allinfo[0]
+        #inserting into reservations 
+        command="INSERT INTO reservations (reservation_date,paying_passenger_id,card_number,billing_address) VALUES (%s,%s,%s,%s);"
+        stampdate=session.get('date')+" "+allinfo[2]         
+        cur.execute(command,(stampdate,passenger_id,results[0],results[1]))
+        c.commit()
+        #getting reservation_id
+        command0="SELECT reservation_id from reservations WHERE reservation_date=%s AND paying_passenger_id=%s"
+        cur.execute(command0,(stampdate,passenger_id))
+        results03=cur.fetchone()
+        realresults=results03[0]
+        if results03[0] is None:
+            results03[0]=69
+        #getting station i'ds
+        command01="SELECT station_id FROM stations WHERE station_name LIKE %s"
+        firstS=allinfo[0]
+        print(command,(firstS))
         # cur.execute=(command01,(firstS))
         # bNa=cur.fetchone()
         # if bNa[0] is None:
