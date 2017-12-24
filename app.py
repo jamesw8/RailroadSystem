@@ -195,10 +195,10 @@ def viewTrips():
         trips.append({
             'reservation_id': reservation[0],
             'reservation_date': reservation[1],
-            'departure_station': stations[int(trip['trip_station_start'])][1],
-            'arrival_station': stations[int(trip['trip_station_ends'])][1],
-            'trip_date': trip['trip_date'],
-            'fare': trip['fare']
+            'departure_station': stations[int(trip[2])][1],
+            'arrival_station': stations[int(trip[3])][1],
+            'trip_date': trip[1],
+            'fare': trip[5]
             })
     return render_template('mytrips.html', trips=trips, logged_in=is_logged_in())
 
