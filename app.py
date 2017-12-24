@@ -120,7 +120,7 @@ def viewTrains():
         headers = cur.fetchall()
         cur.execute(command)
         results = cur.fetchall()
-        return render_template('index.html', headers=headers, results=results)
+        return render_template('index.html', logged_in=is_logged_in(), headers=headers, results=results)
     return render_template('index.html', logged_in=is_logged_in())
 
 @app.route('/reservation', methods=['GET','POST'])
