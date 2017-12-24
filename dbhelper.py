@@ -17,9 +17,8 @@ def auth_register(fname, lname, email, password, preferred_card_number, preferre
     cur = c.cursor()
     cur.execute("select * FROM passengers WHERE email=%s;",(email) )
     check=cur.fetchone()
-    if check is None:  
-        return (False, "An account already exists with that email")
-    
+    if not check is None:  
+        return (False, "An account already exists with that email") 
     if '@' not in email:
         return (False, "Invalid email")
     if len(password) < 6:
