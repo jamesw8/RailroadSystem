@@ -20,6 +20,9 @@
 				{% for trip in trips %}
 					{% if trip['trip_date'] >= trip['trip_date'].today() %}
 						<tr>
+					{% else %}
+						<tr class="error">
+					{% endif %}
 							<td>{{ trip['reservation_id'] }}</td>
 							<th>{{ trip['reservation_date'] }}</th>
 							<td>{{ trip['trip_date'] }}</td>
@@ -28,7 +31,6 @@
 							<td>${{ trip['fare'] }}</td>
 							<td><form method="post" action="/f17336pteam3{{ url_for('cancelReservation', reservation_id=(trip['reservation_id']|string)) }}"><button type="submit" class="ui button">Cancel</button></td>
 						</tr>
-					{% endif %}
 				{% endfor %}
 			</tbody>
 			{% endif %}
