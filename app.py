@@ -154,7 +154,7 @@ def viewTrains():
         begin=cur.fetchone()
         if begin[0] is None:
             begin[0]=69
-        cur.execute=(command01,(allinfo[1]))
+        cur.execute=(command01,(allinfo[0]))
         end0=cur.fetchone()
         if end0[0] is None:
             end0[0]=69
