@@ -18,7 +18,7 @@
 			<tbody>
 				{% for listing in session['listings'] %}
 					<tr>
-						<td><input type="radio" name="select" value="{{ listing['departure_station'] }}//{{ listing['arrival_station'] }}//{{ listing['depart_time'] }}//{{ listing['arrive_time'] }}//{{ listing['cost'] }}//{{ listing['train_id'] }}"> </td>
+						<td align="center"><input type="radio" name="select" value="{{ listing['departure_station'] }}//{{ listing['arrival_station'] }}//{{ listing['depart_time'] }}//{{ listing['arrive_time'] }}//{{ listing['cost'] }}//{{ listing['train_id'] }}"> </td>
 						<td >{{ listing['departure_station'] }}</td>
 						<td>{{ listing['arrival_station'] }}</td>
 						<td>{{ listing['depart_time'] }}</td>
