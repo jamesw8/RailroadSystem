@@ -51,8 +51,6 @@
 				document.getElementById('home').classList.add('active');
 			} else if ("{{ request.path }}" == "{{ url_for('viewTrains') }}") {
 				document.getElementById('trains').classList.add('active');
-			}  else if ("{{ request.path }}" == "{{ url_for('makeReservation') }}") {
-				document.getElementById('reservations').classList.add('active');
 			} else if ("{{ request.path }}" == "{{ url_for('register') }}") {
 				document.getElementById('registration').classList.add('active');
 			} else if ("{{ request.path }}" == "{{ url_for('login') }}") {
