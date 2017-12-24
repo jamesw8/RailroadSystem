@@ -71,6 +71,9 @@ def index():
         print(request.form)
         arrival_station = int(request.form['arrive'])
         departure_station = int(request.form['depart'])
+        print(stations)
+        print(departure_station, arrival_station)
+        print(stations[departure_station], stations[arrival_station])
         # 0 is south-bound train
         # 1 is north-bound train
         if arrival_station > departure_station:
