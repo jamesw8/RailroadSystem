@@ -11,7 +11,8 @@
 					<th>Trip Date</th>
 					<th>Departure Station</th>
 					<th>Arrival Station</th>
-					<th>Fare<th>
+					<th>Fare</th>
+					<th>&nbsp;</th>
 				</tr>
 			</thead>
 			{% if trips %}
@@ -24,6 +25,7 @@
 						<td>{{ trip['departure_station'] }}</td>
 						<td>{{ trip['arrival_station'] }}</td>
 						<td>{{ trip['fare'] }}</td>
+						<td><a class="ui button" href="/f17336pteam3{{ url_for('cancelReservation') }}">Cancel</a></td>
 					</tr>
 				{% endfor %}
 			</tbody>
