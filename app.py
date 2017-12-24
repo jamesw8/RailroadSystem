@@ -139,42 +139,42 @@ def viewTrains():
         allinfo=info.split("//")
         print('INFO',type(allinfo),allinfo)
         passenger_id=int(session.get('id'))
-        cur.execute("SELECT preferred_card_number,preferred_billing_address from passengers WHERE passenger_id=%s",(passenger_id))
-        results=cur.fetchone()
-        #inserting into reservations 
-        command="INSERT INTO reservations (reservation_date,paying_passenger_id,card_number,billing_address) VALUES (%s,%s,%s,%s);"
-        stampdate=session.get('date')+" "+allinfo[2]         
-        cur.execute(command,(stampdate,passenger_id,results[0],results[1]))
-        c.commit()
-        #getting reservation_id
-        command0="SELECT reservation_id from reservations WHERE reservation_date=%s AND paying_passenger_id=%s"
-        cur.execute(command0,(stampdate,passenger_id))
-        results03=cur.fetchone()
-        realresults=results03[0]
-        if results03[0] is None:
-            results03[0]=69
-        #getting station i'ds
-        command01="SELECT station_id FROM stations WHERE station_name LIKE %s"
-        firstS=allinfo[0]
-        cur.execute=(command01,(firstS))
-        bNa=cur.fetchone()
-        if bNa[0] is None:
-            bNa[0]=69
-        secondS=allinfo[1]
-        cur.execute=(command01,(secondS))
-        wR=cur.fetchone()
-        if wR[0] is None:
-            wR[0]=69
-        #inserting into trips table
-        command2="INSERT INTO trips (trip_date,trip_station_start,trip_station_ends,fare_type,fare,trip_train_id,reservation_id) VALUES(%s,%s,%s,%s,%s,%s,%s);"
-        temp=bNa[0]
-        temp1=wR[0]
-        fare_type=1 
-        train_id=23
-        realfare=allinfo[4] 
-        tHd=session.get('date')
-        cur.execute(command,(tHd,temp,temp1,fare_type,realfare,train_id,realresults))
-        c.commit() 
+        # cur.execute("SELECT preferred_card_number,preferred_billing_address from passengers WHERE passenger_id=%s",(passenger_id))
+        # results=cur.fetchone()
+        # #inserting into reservations 
+        # command="INSERT INTO reservations (reservation_date,paying_passenger_id,card_number,billing_address) VALUES (%s,%s,%s,%s);"
+        # stampdate=session.get('date')+" "+allinfo[2]         
+        # cur.execute(command,(stampdate,passenger_id,results[0],results[1]))
+        # c.commit()
+        # #getting reservation_id
+        # command0="SELECT reservation_id from reservations WHERE reservation_date=%s AND paying_passenger_id=%s"
+        # cur.execute(command0,(stampdate,passenger_id))
+        # results03=cur.fetchone()
+        # realresults=results03[0]
+        # if results03[0] is None:
+        #     results03[0]=69
+        # #getting station i'ds
+        # command01="SELECT station_id FROM stations WHERE station_name LIKE %s"
+        # firstS=allinfo[0]
+        # cur.execute=(command01,(firstS))
+        # bNa=cur.fetchone()
+        # if bNa[0] is None:
+        #     bNa[0]=69
+        # secondS=allinfo[1]
+        # cur.execute=(command01,(secondS))
+        # wR=cur.fetchone()
+        # if wR[0] is None:
+        #     wR[0]=69
+        # #inserting into trips table
+        # command2="INSERT INTO trips (trip_date,trip_station_start,trip_station_ends,fare_type,fare,trip_train_id,reservation_id) VALUES(%s,%s,%s,%s,%s,%s,%s);"
+        # temp=bNa[0]
+        # temp1=wR[0]
+        # fare_type=1 
+        # train_id=23
+        # realfare=allinfo[4] 
+        # tHd=session.get('date')
+        # cur.execute(command,(tHd,temp,temp1,fare_type,realfare,train_id,realresults))
+        # c.commit() 
         return render_template('index.html',logged_in=is_logged_in()) 
         #return render_template('index.html', logged_in=is_logged_in(), headers=headers, results=results)
     return render_template('trains.html', logged_in=is_logged_in())
