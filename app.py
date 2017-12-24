@@ -137,6 +137,7 @@ def viewTrains():
         cur = c.cursor()
         info=request.form['select'] 
         allinfo=info.split("//")
+        print('ALLINFO', allinfo)
         passenger_id=int(session.get('id'))
         cur.execute("SELECT preferred_card_number,preferred_billing_address from passengers WHERE passenger_id=%s",(passenger_id))
         results=cur.fetchone()
@@ -173,9 +174,9 @@ def viewTrains():
         realfare=allinfo[4] 
         tHd=session.get('date')
         cur.execute(command2.format(tHd,temp,temp1,fare_type,realfare,train_id,realresults))
+        # reduceSeat(train, temp, temp1)
         c.commit() 
-        return render_template('index.html',logged_in=is_logged_in()) 
-        #return render_template('index.html', logged_in=is_logged_in(), headers=headers, results=results)
+        return redirect('/f17336pteam3'+url_for('viewTrips'))
     return render_template('trains.html', logged_in=is_logged_in())
 
 @app.route('/mytrips', methods=['GET'])
