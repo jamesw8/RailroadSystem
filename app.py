@@ -89,7 +89,7 @@ def index():
             day = 0
         cur.execute('SELECT * FROM trains WHERE train_direction=' + str(direction) + ' and train_days=' + str(day) + ';')
         potential_trains = cur.fetchall()
-        print('POTENTIAL TRAINS\n', potential_trains)
+        # print('POTENTIAL TRAINS\n', potential_trains)
         listings = []
         for row in potential_trains:
 
@@ -103,7 +103,7 @@ def index():
                     'depart_time': str(depart),
                     'arrive_time': str(arrive)
                     })
-        print('LISTINGS HERE\n',listings)
+        # print('LISTINGS HERE\n',listings)
         # train_days
         # 0 is weekends
         # 1 is weekdays
@@ -172,9 +172,11 @@ def getTimes(train, start, end):
     cur.execute('SELECT * FROM stops_at WHERE train_id=' + str(train[0]) + ' and station_id=' + str(start) + ';')
     # time out from departure station
     depart = cur.fetchall()[0][3]
+    print(train, depart)
     cur.execute('SELECT * FROM stops_at WHERE train_id=' + str(train[0]) + ' and station_id=' + str(end) + ';')
     # time in from arrival station
     arrive = cur.fetchall()[0][2]
+    print(train,arrive)
     return depart, arrive
 
 def getSegments(train, start, end):
