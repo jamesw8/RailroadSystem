@@ -129,6 +129,8 @@ def viewTrains():
     if not 'listings' in session:
         return redirect('/f17336pteam3'+url_for('index'))
     if request.method == 'POST':
+        if not is_logged_in()[0]:
+            return redirect('/f17336pteam3'+url_for('viewTrains'))
         # handle reserve
         c = db.connect()
         cur = c.cursor()
