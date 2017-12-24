@@ -151,6 +151,7 @@ def checkTrip(train, start, end, travel_date):
         cost += queried_segment[3]
 
         # check if free seat
+        print('SELECT * FROM seats_free WHERE train_id=' + str(train_id) + ' and segment_id=' + str(queried_segment[0]) + ' and seat_free_date=' + str(travel_date.year) + '-' + str(travel_date.month) + '-' + str(travel_date.day) + ';')
         cur.execute('SELECT * FROM seats_free WHERE train_id=' + str(train_id) + ' and segment_id=' + str(queried_segment[0]) + ' and seat_free_date=' + str(travel_date.year) + '-' + str(travel_date.month) + '-' + str(travel_date.day) + ';')
         print('SEATSSSS QUERY\n', cur.fetchall())
         queried_seats = cur.fetchall()[0]
