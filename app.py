@@ -97,7 +97,7 @@ def index():
             if free:
                 depart, arrive = getTimes(row, departure_station, arrival_station)
                 listings.append({
-                    'cost': cost,
+                    'cost': str(cost),
                     'departure_station': stations[departure_station][1],
                     'arrival_station': stations[arrival_station][1],
                     'depart_time': str(depart),
