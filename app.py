@@ -19,7 +19,7 @@ def is_logged_in():
 @app.route('/register', methods=['GET', 'POST']) 
 def register():
     if is_logged_in()[0]:
-        return redirect(url_for('index'))
+        return redirect('/f17336pteam3'+url_for('index'))
     if request.method == 'POST':
         #add new passenger to db
         fname = request.form['fname'].capitalize()
@@ -58,7 +58,7 @@ def login():
             flash(response[1])
             if response[0]:
                 session['username'] = response[2]
-                return redirect(url_for('index'))
+                return redirect('/f17336pteam3'+url_for('index'))
     return render_template('login.html',logged_in=is_logged_in())
 
 @app.route('/', methods=['GET', 'POST']) 
@@ -129,10 +129,9 @@ def viewTrains():
 
 @app.route('/reservation', methods=['GET','POST'])
 def makeReservation():
-        print(request.path,url_for('makeReservation'))
         if not session.get('logged_in'):
                 flash("You need to log in or sign up to Book A Ticket")
-                return redirect(url_for('login'))
+                return redirect('/f17336pteam3'+url_for('login'))
         if request.method == 'POST':
                 command = request.form['command']
                 cur.execute('describe stations;')
