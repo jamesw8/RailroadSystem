@@ -226,8 +226,10 @@ def cancelReservation(reservation_id):
         try:
             cur.execute('SELECT * FROM reservations WHERE reservation_id=' + reservation_id + ';')
             reservation = cur.fetchone()
+            print(reservation)
             cur.execute('SELECT * FROM trips WHERE reservation_id=' + reservation_id + ';')
             trip = cur.fetchone()
+            print(trip)
             if reservation:
                 cur.execute('DELETE FROM reservations WHERE reservation_id=' + reservation_id + ';')
                 cur.execute('DELETE FROM trips WHERE reservation_id=' + reservation_id + ';')
@@ -242,7 +244,7 @@ def cancelReservation(reservation_id):
                 c.commit()
                 flash('You successfully cancelled your reservation')
                 return redirect('/f17336pteam3'+url_for('viewTrips'))
-            flash('Error cancelling your reservation')
+            flash('There was a problem cancelling your reservation')
         except:
             flash('Error cancelling your reservation')
     return redirect('/f17336pteam3'+url_for('viewTrips'))
