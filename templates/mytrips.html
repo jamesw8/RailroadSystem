@@ -1,35 +1,28 @@
 {% extends "base.html" %}
 {% block content %}
-	<!-- <form method="post" action="/f17336pteam3{{ url_for('viewTrains') }}">
-		<div class="ui container form">
-			<div class="field">
-				<label>Enter a SQL command here:</label>
-				<textarea rows="2" name="command" placeholder="SQL command here." required>SELECT * FROM stations;</textarea>
-			</div>
-			<input class="ui button" type="submit" value="Submit" />
-		</div>
-	</form> -->
-	{% if session['listings'] %}
+	{% if trips %}
 	<div class="ui container">
-		<h1>Tickets from {{ session['from'] }} to {{ session['to'] }} on {{ session['date'] }}</h1>
+		<h1>My Tickets</h1>
 		<table class="ui selectable celled table">
 			<thead>
 				<tr>
+					<th>Reservation Number</th>
+					<th>Reservation Date</th>
+					<th>Trip Date</th>
 					<th>Departure Station</th>
 					<th>Arrival Station</th>
-					<th>Time of Departure (EST)</th>
-					<th>Time of Arrival (EST)</th>
-					<th>Cost of Ticket</th>
+					<th>Fare<th>
 				</tr>
 			</thead>
 			<tbody>
-				{% for listing in session['listings'] %}
+				{% for trip in trips %}
 					<tr>
-						<td>{{ listing['departure_station'] }}</td>
-						<td>{{ listing['arrival_station'] }}</td>
-						<td>{{ listing['depart_time'] }}</td>
-						<td>{{ listing['arrive_time'] }}</td>
-						<td>${{ listing['cost'] }}</td>
+						<td>{{ trip['reservation_id'] }}</td>
+						<th>{{ trip['reservation_date'] }}</th>
+						<td>{{ trip['trip_date'] }}</td>
+						<td>{{ trip['departure_station'] }}</td>
+						<td>{{ trip['arrival_station'] }}</td>
+						<td>{{ trip['fare'] }}</td>
 					</tr>
 				{% endfor %}
 			</tbody>
