@@ -144,6 +144,8 @@ def checkTrip(train, start, end, travel_date):
     cost = 0
     train_id = train[0]
     segments = getSegments(train, start, end)
+    if not segments:
+        return False, 0
     free_seat = True
     for segment in segments[:-1]:
         cur.execute('SELECT * FROM segments WHERE segment_id=' + str(segment) + ';')
@@ -203,6 +205,8 @@ def getSegments(train, start, end):
         branch = branch_2
     elif start in branch_3 and end in branch_3:
         branch = branch_3
+    else:
+        return None
     print('START', start, '\nEND', end)
     # print('CHOSEN BRANCH\n', branch)
     start_index = branch.index(start)
