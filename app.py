@@ -119,7 +119,7 @@ def index():
         # 0 is weekends
         # 1 is weekdays
         session['listings'] = listings
-        session['date'] = request.form['travel_date']
+        session['date'] = travel_date
         session['to'] = stations[arrival_station-1][1]
         session['from'] = stations[departure_station-1][1]
         return redirect('/f17336pteam3'+url_for('viewTrains'))
