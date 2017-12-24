@@ -124,12 +124,13 @@ def index():
         return redirect('/f17336pteam3'+url_for('viewTrains'))
     return render_template('index.html', stations=stations, logged_in=is_logged_in())
 
-@app.route('/trains', methods=['GET', 'POST'])
+@app.route('/trains/<rowData>', methods=['GET', 'POST'])
 def viewTrains(rowData):
     if not 'listings' in session:
         return redirect('/f17336pteam3'+url_for('index'))
     if request.method == 'POST':
         # handle reserve
+
         return render_template('index.html', logged_in=is_logged_in(), headers=headers, results=results)
     return render_template('trains.html', logged_in=is_logged_in())
 
