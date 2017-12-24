@@ -200,7 +200,7 @@ def viewTrips():
         print('SELECT * FROM trips WHERE reservation_id=' + str(reservation[0]) + ';')
         cur.execute('SELECT * FROM trips WHERE reservation_id=' + str(reservation[0]) + ';')
         trip = cur.fetchone()
-        if 
+
         print(trip)
         print(type(trip[1]))
         trips.append({
