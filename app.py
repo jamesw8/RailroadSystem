@@ -130,9 +130,18 @@ def viewTrains():
         return redirect('/f17336pteam3'+url_for('index'))
     if request.method == 'POST':
         # handle reserve
-            
-        flash( request.form['select']) 
-        return render_template('trains.html', logged_in=is_logged_in())
+        c = db.connect()
+        cur = c.cursor()
+        info=request.form['select'] 
+        allinfo=info.split("//")
+        passenger_id=session['id'] 
+        cur.execute("SELECT preferred_card_number,preferred_billing_address from passengers WHERE passenger_id=%d",passenger_id)
+        results=cur.fetchone()
+        command="INSERT INTO reservations (reservation_date,paying_passenger_id,card_number,billing_address) VALUES (%s,%d,%s,%s);"
+        stampdate=session['date']+" "+allinfo[2]         
+        cur.execute(command,(stampdate,passenger_id,results[0],results[1]))
+        cur.commit() 
+        return render_template('index.html',logged_in=is_logged_in()) 
         #return render_template('index.html', logged_in=is_logged_in(), headers=headers, results=results)
     return render_template('trains.html', logged_in=is_logged_in())
 
