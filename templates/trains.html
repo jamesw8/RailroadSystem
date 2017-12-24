@@ -1,26 +1,13 @@
 {% extends "base.html" %}
-{% block content %}
-	<!-- <form method="post" action="/f17336pteam3{{ url_for('viewTrains') }}">
-		<div class="ui container form">
-			<div class="field">
-				<label>Enter a SQL command here:</label>
-				<textarea rows="2" name="command" placeholder="SQL command here." required>SELECT * FROM stations;</textarea>
-			</div>
-			<input class="ui button" type="submit" value="Submit" />
-		</div>
-	</form> -->
-<script> jQuery(document).ready(function($) {
-    $(".clickable-row").click(function() {
-       alert($(this).data("href"));
-        window.location = $(this).data("href");
-    });
-}); </script>
+{% block content %}	
 	{% if session['listings'] %}
+	<form method="post" action="/f17336pteam3{{url_for('viewTrains')}}">
 	<div class="ui container">
 		<h1>Tickets from {{ session['from'] }} to {{ session['to'] }} on {{ session['date'] }}</h1>
 		<table class="ui selectable celled table">
 			<thead>
 				<tr>
+					<th>Select This option</th>
 					<th>Departure Station</th>
 					<th>Arrival Station</th>
 					<th>Time of Departure (EST)</th>
@@ -30,8 +17,9 @@
 			</thead>
 			<tbody>
 				{% for listing in session['listings'] %}
-					<tr class="clickable-row" method="POST" data-href="{{url_for('viewTrains') }}" >
-						<td name="dep_station" value="{{ listing['departure_station'] }}" >{{ listing['departure_station'] }}</td>
+					<tr>
+						<td><input class="ui button" name="choice" type="submit" value="Submit"> </td>
+						<td>{{ listing['departure_station'] }}</td>
 						<td>{{ listing['arrival_station'] }}</td>
 						<td>{{ listing['depart_time'] }}</td>
 						<td>{{ listing['arrive_time'] }}</td>
@@ -42,4 +30,5 @@
 		</table>
 	</div>
 	{% endif %}
+	</form>
 {% endblock %}
