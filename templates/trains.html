@@ -18,7 +18,7 @@
 			<tbody>
 				{% for listing in session['listings'] %}
 					<tr>
-						<td><input type="radio" name="select" value="{{ listing['departure_station'] }} {{ listing['arrival_station'] }} {{ listing['depart_time'] }} {{ listing['arrive_time'] }} {{ listing['cost'] }}"> </td>
+						<td><input type="radio" name="select" value="{{ listing['departure_station'] }}//{{ listing['arrival_station'] }}//{{ listing['depart_time'] }}//{{ listing['arrive_time'] }}//{{ listing['cost'] }}"> </td>
 						<td >{{ listing['departure_station'] }}</td>
 						<td>{{ listing['arrival_station'] }}</td>
 						<td>{{ listing['depart_time'] }}</td>
@@ -28,9 +28,9 @@
 				{% endfor %}
 			</tbody>
 		</table>
+	<input class="ui button" type="submit" value="Submit">
 	</div>
 	{% endif %}
-	<input class="ui button" type="submit" value="Submit">
 
 	</form>
 {% endblock %}
