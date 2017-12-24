@@ -154,7 +154,7 @@ def viewTrains():
         realresults=results03[0]
         if results03[0] is None:
             results03[0]=69
-        #getting station i'ds
+        #getting station id's
         firstS=allinfo[0]
         command01='SELECT station_id FROM stations WHERE station_name LIKE "{}";'
         cur.execute(command01.format(firstS))
@@ -176,7 +176,9 @@ def viewTrains():
         tHd=session.get('date')
         print(command2.format(tHd,temp,temp1,fare_type,realfare,train_id,realresults))
         cur.execute(command2.format(tHd,temp,temp1,fare_type,realfare,train_id,realresults))
-        # reduceSeat(train, temp, temp1)
+        cur.execute('SELECT * FROM trains WHERE train_id=' + str(train_id) + ';')
+        train = cur.fetchone()
+        reduceSeat(train, temp, temp1)
         c.commit() 
         return redirect('/f17336pteam3'+url_for('viewTrips'))
     return render_template('trains.html', logged_in=is_logged_in())
