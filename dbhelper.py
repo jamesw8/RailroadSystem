@@ -35,6 +35,6 @@ def auth_login(email, password):
     cur.execute(command,(email))
     results = cur.fetchone()
     if not results is None:
-        if check_password_hash(results[2], password):
+        if check_password_hash(results[3], password):
             return (True, "Login successful", results[1], results[0])
     return(False,"Email and/or password incorrect")
