@@ -155,7 +155,8 @@ def viewTrains():
         bNa=cur.fetchone()
         if bNa[0] is None:
             bNa[0]=69
-        cur.execute=(command01,(allinfo[2]))
+        secondS=allinfo[1]
+        cur.execute=(command01,(secondS))
         wR=cur.fetchone()
         if wR[0] is None:
             wR[0]=69
@@ -165,7 +166,8 @@ def viewTrains():
         temp1=wR[0]
         fare_type=1 
         train_id=23
-        cur.execute(command,(session.get('date'),temp,temp1,fare_type,allinfo[4],train_id,results03[0]))
+        realfare=allinfo[4] 
+        cur.execute(command,(session.get('date'),temp,temp1,fare_type,realfare,train_id,results03[0]))
         c.commit() 
         return render_template('index.html',logged_in=is_logged_in()) 
         #return render_template('index.html', logged_in=is_logged_in(), headers=headers, results=results)
