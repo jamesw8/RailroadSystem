@@ -145,7 +145,7 @@ def viewTrains():
         #inserting into reservations 
         command="INSERT INTO reservations (reservation_date,paying_passenger_id,card_number,billing_address) VALUES (%s,%s,%s,%s);"
         stampdate=session.get('date')+" "+allinfo[2]         
-        # cur.execute(command,(stampdate,passenger_id,results[0],results[1]))
+        cur.execute(command,(stampdate,passenger_id,results[0],results[1]))
         c.commit()
         #getting reservation_id
         command0="SELECT reservation_id from reservations WHERE reservation_date=%s AND paying_passenger_id=%s"
@@ -156,20 +156,20 @@ def viewTrains():
             results03[0]=69
         #getting station i'ds
         firstS=allinfo[0]
-        command01='SELECT station_id FROM stations WHERE station_name LIKE "'+str(firstS)+'";'
-        print(command01,(firstS))
-        cur.execute(command01)
+        command01='SELECT station_id FROM stations WHERE station_name LIKE "{}";'
+        print(command01.format(firstS))
+        cur.execute(command01.format(firstS))
         bNa=cur.fetchone()
         print('bNa\n',bNa)
         if bNa[0] is None:
             bNa[0]=69
         secondS=allinfo[1]
-        cur.execute(command01,(secondS))
+        cur.execute(command01.format(secondS))
         wR=cur.fetchone()
         if wR[0] is None:
             wR[0]=69
         #inserting into trips table
-        command2="INSERT INTO trips (trip_date,trip_station_start,trip_station_ends,fare_type,fare,trip_train_id,reservation_id) VALUES({}, {}, {}, {}, {}, {}, {});"
+        command2="INSERT INTO trips (trip_date,trip_station_start,trip_station_ends,fare_type,fare,trip_train_id,reservation_id) VALUES(%s,%s,%s,%s,%s,%s,%s);"
         temp=bNa[0]
         temp1=wR[0]
         fare_type=1 
@@ -177,7 +177,7 @@ def viewTrains():
         realfare=allinfo[4] 
         tHd=session.get('date')
         print(str(tHd), str(temp), str(temp1), str(fare_type), str(realfare), str(train_id), str(realresults))
-        # cur.execute(command.format(tHd,temp,temp1,fare_type,realfare,train_id,realresults))
+        cur.execute(command,(tHd,temp,temp1,fare_type,realfare,train_id,realresults))
         c.commit() 
         return render_template('index.html',logged_in=is_logged_in()) 
         #return render_template('index.html', logged_in=is_logged_in(), headers=headers, results=results)
