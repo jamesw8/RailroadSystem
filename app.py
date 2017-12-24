@@ -245,8 +245,8 @@ def cancelReservation(reservation_id):
                 flash('You successfully cancelled your reservation')
                 return redirect('/f17336pteam3'+url_for('viewTrips'))
             flash('There was a problem cancelling your reservation')
-        except:
-            flash('Error cancelling your reservation')
+        except Exception as e:
+            flash(str(e) + 'Error cancelling your reservation')
     return redirect('/f17336pteam3'+url_for('viewTrips'))
 
 def checkTrip(train, start, end, travel_date):
