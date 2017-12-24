@@ -140,7 +140,7 @@ def viewTrains():
         command="INSERT INTO reservations (reservation_date,paying_passenger_id,card_number,billing_address) VALUES (%s,%s,%s,%s);"
         stampdate=session.get('date')+" "+allinfo[2]         
         cur.execute(command,(stampdate,passenger_id,results[0],results[1]))
-        cur.commit() 
+        c.commit() 
         return render_template('index.html',logged_in=is_logged_in()) 
         #return render_template('index.html', logged_in=is_logged_in(), headers=headers, results=results)
     return render_template('trains.html', logged_in=is_logged_in())
