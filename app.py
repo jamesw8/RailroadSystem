@@ -145,7 +145,7 @@ def viewTrains():
         #inserting into reservations 
         command="INSERT INTO reservations (reservation_date,paying_passenger_id,card_number,billing_address) VALUES (%s,%s,%s,%s);"
         stampdate=session.get('date')+" "+allinfo[2]         
-        cur.execute(command,(stampdate,passenger_id,results[0],results[1]))
+        # cur.execute(command,(stampdate,passenger_id,results[0],results[1]))
         c.commit()
         #getting reservation_id
         command0="SELECT reservation_id from reservations WHERE reservation_date=%s AND paying_passenger_id=%s"
