@@ -100,8 +100,8 @@ def index():
                     'cost': cost,
                     'departure_station': stations[departure_station][1],
                     'arrival_station': stations[arrival_station][1],
-                    'depart_time': depart,
-                    'arrive_time': arrive
+                    'depart_time': str(depart),
+                    'arrive_time': str(arrive)
                     })
         print('LISTINGS HERE\n',listings)
         # train_days
