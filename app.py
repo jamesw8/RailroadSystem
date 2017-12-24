@@ -104,6 +104,7 @@ def index():
             if free:
                 depart, arrive = getTimes(row, departure_station, arrival_station)
                 listings.append({
+                    'train_id': str(row[0]),
                     'cost': str(cost),
                     'departure_station': stations[departure_station-1][1],
                     'arrival_station': stations[arrival_station-1][1],
@@ -170,7 +171,7 @@ def viewTrains():
         temp=bNa[0]
         temp1=wR[0]
         fare_type=1 
-        train_id=23
+        train_id=allinfo[5]
         realfare=allinfo[4] 
         tHd=session.get('date')
         cur.execute(command2.format(tHd,temp,temp1,fare_type,realfare,train_id,realresults))
@@ -193,8 +194,6 @@ def viewTrips():
     for reservation in reservations:
         cur.execute('SELECT * FROM trips WHERE reservation_id=' + str(reservation[0]) + ';')
         trip = cur.fetchone()
-        print('STATIONS\n', stations)
-        print('TRIP\n', trip)
         trips.append({
             'reservation_id': reservation[0],
             'reservation_date': reservation[1],
