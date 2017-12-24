@@ -33,11 +33,11 @@ def auth_login(email, password):
     cur = c.cursor()
     command="SELECT fname,email,password FROM passengers WHERE email=%s;"
     cur.execute(command,(email))
-    results = cur.fetchall()
+    results = cur.fetchone()
     exist=False
     for row in results:
          exist=True
     if exist:
-        if check_password_hash(results[0][4], password):
-            return (True, "Login successful", results[0][0])
+        if check_password_hash(results[4], password):
+            return (True, "Login successful", results[0])
     return(False,"Email and/or password incorrect")
