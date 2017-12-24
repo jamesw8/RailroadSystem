@@ -217,7 +217,7 @@ def makeReservation():
 
 @app.route('/cancel/<reservation_id>', methods=['GET','POST'])
 def cancelReservation(reservation_id):
-    if not session.get('logged_in'):
+    if not is_logged_in()[0]:
         flash("You need to log in to cancel a reservation")
         return redirect('/f17336pteam3'+url_for('login'))
     if request.method == 'POST':
