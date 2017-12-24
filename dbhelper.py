@@ -15,7 +15,8 @@ def auth_register(fname, lname, email, password, preferred_card_number, preferre
     #check that email not already tied to another user
     c = connect()
     cur = c.cursor()
-    check=cur.execute("select * FROM passengers WHERE email=%s;",(emai) )
+    cur.execute("select * FROM passengers WHERE email=%s;",(emai) )
+    check=cur.fetchone()
     if check is None:  
         return (False, "An account already exists with that email")
     
