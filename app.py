@@ -175,7 +175,7 @@ def viewTrains():
         realfare=allinfo[4] 
         tHd=session.get('date')
         print(command2.format(tHd,temp,temp1,fare_type,realfare,train_id,realresults))
-        # cur.execute(command2.format(tHd,temp,temp1,fare_type,realfare,train_id,realresults))
+        cur.execute(command2.format(tHd,temp,temp1,fare_type,realfare,train_id,realresults))
         # reduceSeat(train, temp, temp1)
         c.commit() 
         return redirect('/f17336pteam3'+url_for('viewTrips'))
