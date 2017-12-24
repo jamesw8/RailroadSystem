@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-	{% if trips %}
+
 	<div class="ui container">
 		<h1>My Tickets</h1>
 		<table class="ui selectable celled table">
@@ -14,6 +14,7 @@
 					<th>Fare<th>
 				</tr>
 			</thead>
+			{% if trips %}
 			<tbody>
 				{% for trip in trips %}
 					<tr>
@@ -26,7 +27,8 @@
 					</tr>
 				{% endfor %}
 			</tbody>
+			{% endif %}
 		</table>
 	</div>
-	{% endif %}
+	
 {% endblock %}
