@@ -29,7 +29,13 @@
 							<td>{{ trip['departure_station'] }}</td>
 							<td>{{ trip['arrival_station'] }}</td>
 							<td>${{ trip['fare'] }}</td>
-							<td><form method="post" action="/f17336pteam3{{ url_for('cancelReservation', reservation_id=(trip['reservation_id']|string)) }}"><button type="submit" class="ui button">{% if trip['trip_date'] >= trip['trip_date'].today() %}Cancel{% else %}Remove{% endif %}</button></td>
+							<td><form method="post" action="/f17336pteam3{{ url_for('cancelReservation', reservation_id=(trip['reservation_id']|string)) }}"><button type="submit" class="ui button">
+								{% if trip['trip_date'] >= trip['trip_date'].today() %}
+									Cancel
+								{% else %}
+									Remove
+								{% endif %}
+							</button></form></td>
 						</tr>
 				{% endfor %}
 			</tbody>
