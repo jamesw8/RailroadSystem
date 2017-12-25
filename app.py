@@ -125,10 +125,11 @@ def index():
         session['from'] = stations[departure_station-1][1]
         return redirect('/f17336pteam3'+url_for('viewTrains'))
     return render_template('index.html', stations=stations, logged_in=is_logged_in())
+
 @app.route('/confirm',methods=['GET','POST'])
 def confirmReservation():
-    if not 'listing' in session:
-        return redirect('/f17336pteam3'+url_for('index')) 
+    
+    #save information
     c = db.connect()
     cur = c.cursor()
     info=request.form['select'] 
