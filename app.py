@@ -155,7 +155,7 @@ def viewTrains():
             })
     return render_template('confirmation.html', trips=trips, logged_in=is_logged_in())
         #handle reserve code
-        c = db.connect()
+    '''    c = db.connect()
         cur = c.cursor()
         info=request.form['select'] 
         allinfo=info.split("//")
@@ -206,8 +206,8 @@ def viewTrains():
         print(type(tHd))
         reduceSeat(train, segments, tHd)
         c.commit() 
-        return redirect('/f17336pteam3'+url_for('viewTrips'))
-    return render_template('trains.html', logged_in=is_logged_in())
+        return redirect('/f17336pteam3'+url_for('viewTrips')) ''' 
+   return render_template('trains.html', logged_in=is_logged_in())
 
 @app.route('/mytrips', methods=['GET'])
 def viewTrips():
