@@ -149,6 +149,7 @@ def viewTrains():
         'Time of Departure(EST)':str(allinfo[2]),
         'Time of Arrival(EST)':str(allinfo[3]),
         'trip_date': str(session.get('date')),
+        'train_id':allinfo[5],
         'fare': str(allinfo[4])
             })
         return render_template('confirmation.html', trips=trips, logged_in=is_logged_in())
