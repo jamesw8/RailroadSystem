@@ -206,7 +206,7 @@ def viewTrips():
         trip = cur.fetchone()
 
         print(trip)
-        print(type(trip[1]))
+        #print(type(trip[1]))
         trips.append({
             'reservation_id': reservation[0],
             'reservation_date': reservation[1],
