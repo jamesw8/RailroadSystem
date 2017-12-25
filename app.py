@@ -147,6 +147,7 @@ def viewTrains():
         #stampdate=str(session.get('date').year) + '-' + str(session.get('date').month) + '-' + str(session.get('date').day)+" "+allinfo[2]          
         ts=time.time()
         stampdate=datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+        stampdater=str(stampdate)
         command="INSERT INTO reservations (reservation_date,paying_passenger_id,card_number,billing_address) VALUES (%s,%s,%s,%s);"
         cur.execute(command,(stampdate,passenger_id,results[0],results[1]))
         c.commit()
