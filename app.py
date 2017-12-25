@@ -199,13 +199,13 @@ def viewTrains():
         allinfo=info.split("//")
         depart=str(allinfo[0])
         arrive=str(allinfo[1])
-        command="SELECT station_id FROM stations WHERE station_name=%s;"
+        command="SELECT station_id FROM stations_copy WHERE station_name=%s;"
         cur.execute(command,(depart)) 
         depart1=cur.fetchone()
         cur.execute(command,(arrive))
         arrive1=cur.fetchone()
         train_key=str(allinfo[5])
-        command="SELECT * FROM trips WHERE trip_date=%s AND trip_station_start=%s AND trip_station_end=%s AND trip_train_id=%s"
+        command="SELECT * FROM trips WHERE trip_date=%s AND trip_station_start=%s AND trip_station_ends=%s AND trip_train_id=%s"
         stampdate=str(session.get('date').year) + '-' + str(session.get('date').month) + '-' + str(session.get('date').day)
         cur.execute(command,(stampdate,depart1,arrive1,train_key))
         duplicate=cur.fetchone() 
