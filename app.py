@@ -127,8 +127,7 @@ def index():
     return render_template('index.html', stations=stations, logged_in=is_logged_in())
 
 @app.route('/confirm',methods=['GET','POST'])
-def confirmReservation():
-    
+def confirmReservation():    
     #save information
     c = db.connect()
     cur = c.cursor()
@@ -191,8 +190,30 @@ def viewTrains():
         if not is_logged_in()[0]:
             flash('You need to log in or register to book this ticket')
             return redirect('/f17336pteam3'+url_for('viewTrains'))
-        # handle confirmatio page
+        #checking the trip is still available
+        c = db.connect()
+        cur = c.cursor() 
+        
+       #getting station id's
         info=request.form['select']
+        allinfo=info.split("//")
+        depart=str(allinfo[0])
+        arrive=str(allinfo[1])
+        command="SELECT station_id FROM stations WHERE station_name=%s;"
+        cur.execute(command,(depart)) 
+        depart1=cur.fetchone()
+        cur.execute(command,(arrive))
+        arrive1=cur.fetchone()
+        train_key=str(allinfo[5])
+        command="SELECT * FROM trips WHERE trip_date=%s AND trip_station_start=%s AND trip_station_end=%s AND trip_train_id=%s"
+        stampdate=str(session.get('date').year) + '-' + str(session.get('date').month) + '-' + str(session.get('date').day)
+        cur.execute(command,(stampdate,depart1,arrive1,train_key))
+        duplicate=cur.fetchone() 
+        if not duplicate is None:
+            flash("Sorry reservation was taken")
+            return render_template('index.html',logged_in=is_logged_in()) 
+        # handle confirmatio page
+	info=request.form['select']
         allinfo=info.split("//")
         trips = []
         trips.append({
