@@ -6,11 +6,11 @@
 		<table class="ui selectable celled table">
 			<thead>
 				<tr>
-					<th>Reservation Number</th>
-					<th>Reservation Date</th>
-					<th>Trip Date</th>
 					<th>Departure Station</th>
 					<th>Arrival Station</th>
+					<th>Time of Departure (EST)</th>
+					<th>Time of Arrival(EST)</th>
+					<th>Trip Date</th>
 					<th>Fare</th>
 					<th>&nbsp;</th>
 				</tr>
@@ -18,16 +18,11 @@
 			{% if trips %}
 			<tbody>
 				{% for trip in trips %}
-					{% if trip['trip_date'] >= trip['trip_date'].today() %}
-						<tr>
-					{% else %}
-						<tr class="error">
-					{% endif %}
-							<td>{{ trip['reservation_id'] }}</td>
-							<th>{{ trip['reservation_date'] }}</th>
-							<td>{{ trip['trip_date'] }}</td>
 							<td>{{ trip['departure_station'] }}</td>
-							<td>{{ trip['arrival_station'] }}</td>
+							<th>{{ trip['arrival_station'] }}</th>
+							<td>{{ trip['Time of Departure(EST)'] }}</td>
+							<td>{{ trip['Time of Arrival(EST)'] }}</td>
+							<td>{{ trip['trip_date'] }}</td>
 							<td>${{ trip['fare'] }}</td>
 							<td><form method="post" action="/f17336pteam3{{ url_for('cancelReservation', reservation_id=(trip['reservation_id']|string)) }}"><button type="submit" class="ui button">
 								{% if trip['trip_date'] >= trip['trip_date'].today() %}

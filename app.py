@@ -135,23 +135,16 @@ def viewTrains():
             flash('You need to log in or register to book this ticket')
             return redirect('/f17336pteam3'+url_for('viewTrains'))
         # handle confirmatio page
-        c = db.connect()
-        cur = c.cursor()
-        cur.execute('SELECT * FROM stations_copy;')
-        stations = cur.fetchall()
-        cur.execute('SELECT * FROM reservations WHERE paying_passenger_id=' + str(session['id']) + ' ORDER BY reservation_date DESC LIMIT 1;')
-        reservations = cur.fetchall()
+        info=request.form['select']
+        allinfo=info.split("//")
         trips = []
-        for reservation in reservations:
-            cur.execute('SELECT * FROM trips WHERE reservation_id=' + str(reservation[0]) + ';')
-            trip = cur.fetchone()
-            trips.append({
-            'reservation_id': reservation[0],
-            'reservation_date': reservation[1],
-            'departure_station': stations[int(trip[2])][1],
-            'arrival_station': stations[int(trip[3])][1],
-            'trip_date': trip[1],
-            'fare': trip[5]
+        trips.append({
+        'departure_station': str(allinfo[0]),
+        'arrival_station': str(allinfo[1]),
+        'Time of Departure(EST)':str(allinfo[2]),
+        'Time of Arrival(EST)':str(allinfo[3]),
+        'trip_date': str(session.get('date')),
+        'fare': str(allinfo[4])
             })
         return render_template('confirmation.html', trips=trips, logged_in=is_logged_in())
     return render_template('trains.html', logged_in=is_logged_in())
