@@ -193,7 +193,7 @@ def viewTrips():
     cur = c.cursor()
     cur.execute('SELECT * FROM stations_copy;')
     stations = cur.fetchall()
-    cur.execute('SELECT * FROM reservations WHERE paying_passenger_id=' + str(session['id']) + ' ORDER BY reservation_date;')
+    cur.execute('SELECT * FROM reservations WHERE paying_passenger_id=' + str(session['id']) + ' ORDER BY reservation_date DESC;')
     reservations = cur.fetchall()
     trips = []
     for reservation in reservations:
