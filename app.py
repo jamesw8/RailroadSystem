@@ -129,6 +129,59 @@ def index():
 def confirmReservation():
     if not 'listing' in session:
         return redirect('/f17336pteam3'+url_for('index')) 
+    if request.method == 'POST':
+        c = db.connect()
+        cur = c.cursor()
+        info=request.form['select'] 
+        allinfo=info.split("//")
+        print('ALLINFO', allinfo)
+        passenger_id=int(session.get('id'))
+        cur.execute("SELECT preferred_card_number,preferred_billing_address from passengers WHERE passenger_id=%s",(passenger_id))
+        results=cur.fetchone()
+        #inserting into reservations 
+        #stampdate=str(session.get('date').year) + '-' + str(session.get('date').month) + '-' + str(session.get('date').day)+" "+allinfo[2]          
+        ts=time.time()
+        stampdate=datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+        stampdater=str(stampdate)
+        command="INSERT INTO reservations (reservation_date,paying_passenger_id,card_number,billing_address) VALUES (%s,%s,%s,%s);"
+        cur.execute(command,(stampdate,passenger_id,results[0],results[1]))
+        c.commit()
+        #getting reservation_id
+        command0="SELECT reservation_id from reservations WHERE reservation_date=%s AND paying_passenger_id=%s"
+        cur.execute(command0,(stampdate,passenger_id))
+        results03=cur.fetchone()
+        realresults=results03[0]
+        if results03[0] is None:
+            results03[0]=69
+        #getting station id's
+        firstS=allinfo[0]
+        command01='SELECT station_id FROM stations WHERE station_name LIKE "{}";'
+        cur.execute(command01.format(firstS))
+        bNa=cur.fetchone()
+        if bNa[0] is None:
+            bNa[0]=69
+        secondS=allinfo[1]
+        cur.execute(command01.format(secondS))
+        wR=cur.fetchone()
+        if wR[0] is None:
+            wR[0]=69
+        #inserting into trips table
+        command2="INSERT INTO trips (trip_date,trip_station_start,trip_station_ends,fare_type,fare,trip_train_id,reservation_id) VALUES(\"{}\",{},{},{},{},{},{});"
+        temp=bNa[0]
+        temp1=wR[0]
+        fare_type=1 
+        train_id=allinfo[5]
+        realfare=allinfo[4] 
+        tHd=session.get('date')
+        print(command2.format(tHd,temp,temp1,fare_type,realfare,train_id,realresults))
+        cur.execute(command2.format(tHd,temp,temp1,fare_type,realfare,train_id,realresults))
+        cur.execute('SELECT * FROM trains WHERE train_id=' + str(train_id) + ';')
+        train = cur.fetchone()
+        segments = getSegments(train, temp, temp1)
+        print(type(tHd))
+        reduceSeat(train, segments, tHd)
+        c.commit() 
+        return redirect('/f17336pteam3'+url_for('viewTrips')) 
     return redirect('/f17336pteam3'+url_for('index'))
 
 @app.route('/trains', methods=['GET', 'POST'])
