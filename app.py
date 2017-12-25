@@ -143,9 +143,11 @@ def viewTrains():
         cur.execute("SELECT preferred_card_number,preferred_billing_address from passengers WHERE passenger_id=%s",(passenger_id))
         results=cur.fetchone()
         #inserting into reservations 
-        command="INSERT INTO reservations (reservation_date,paying_passenger_id,card_number,billing_address) VALUES (NOW(),%s,%s,%s);"
-        stampdate=str(session.get('date').year) + '-' + str(session.get('date').month) + '-' + str(session.get('date').day)+" "+allinfo[2]          
-        cur.execute(command,(passenger_id,results[0],results[1]))
+        #stampdate=str(session.get('date').year) + '-' + str(session.get('date').month) + '-' + str(session.get('date').day)+" "+allinfo[2]          
+        ts=time.time()
+        stampdate=datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+        command="INSERT INTO reservations (reservation_date,paying_passenger_id,card_number,billing_address) VALUES (%s,%s,%s,%s);"
+        cur.execute(command,(stampdate,passenger_id,results[0],results[1]))
         c.commit()
         #getting reservation_id
         command0="SELECT reservation_id from reservations WHERE reservation_date=%s AND paying_passenger_id=%s"
