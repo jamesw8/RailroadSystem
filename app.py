@@ -212,6 +212,13 @@ def viewTrains():
         if not duplicate is None:
             flash("Sorry reservation was taken")
             return render_template('index.html',logged_in=is_logged_in()) 
+        command="SELECT * FROM seats_free WHERE train_id=%s AND seat_free_date=%s AND freesit=0;"
+        cur.execute(command,(train_key,stampdate))
+        duplicate1=cur.fetchone()
+        if not duplicate1 is None:
+            flash("Sorry reservation was taken")
+            return render_template('index.html',logged_in=is_logged_in()) 
+        
         # handle confirmatio page
         info=request.form['select']
         allinfo=info.split("//")
