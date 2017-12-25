@@ -129,7 +129,7 @@ def index():
 def confirmReservation():
     if not 'listing' in session:
         return redirect('/f17336pteam3'+url_for('index')) 
-    if request.method == 'POST':
+    if 'POST' == 'POST':
         c = db.connect()
         cur = c.cursor()
         info=request.form['select'] 
