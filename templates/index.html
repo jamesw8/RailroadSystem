@@ -56,5 +56,6 @@
 	{% endif %}
 	<script>
 		document.getElementById('traveldate').valueAsDate = new Date();
+		document.getElementById('traveldate').setAttribute('min', new Date().toISOString().split('T')[0])
 	</script>
 {% endblock %}
