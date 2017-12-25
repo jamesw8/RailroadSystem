@@ -12,7 +12,7 @@
 					<th>Time of Arrival(EST)</th>
 					<th>Trip Date</th>
 					<th>Fare</th>
-					<th>&nbsp;</th>
+					<th>Confirm</th>
 				</tr>
 			</thead>
 			{% if trips %}
@@ -24,7 +24,7 @@
 							<td>{{ trip['Time of Arrival(EST)'] }}</td>
 							<td>{{ trip['trip_date'] }}</td>
 							<td>${{ trip['fare'] }}</td>
-							<td><form method="post" action="/f17336pteam3{{ url_for('confirmReservation')}}"><button type="submit" class="ui button" value="Confirm">
+							<td><form method="post" action="/f17336pteam3{{ url_for('confirmReservation')}}"><button type="submit" class="ui button" value="Confirm">Confirm
 							</button></form></td>
 						</tr>
 				{% endfor %}
