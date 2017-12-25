@@ -213,7 +213,7 @@ def viewTrains():
             flash("Sorry reservation was taken")
             return render_template('index.html',logged_in=is_logged_in()) 
         # handle confirmatio page
-	info=request.form['select']
+        info=request.form['select']
         allinfo=info.split("//")
         trips = []
         trips.append({
